@@ -21,6 +21,8 @@ module.exports = {
     'space-in-parens': 'error',
     'no-multiple-empty-lines': 'error',
     'prefer-const': 'error',
+    'semi': ["error", "never"],
+    'quotes': ['error', 'single'],
     
   },
 };
