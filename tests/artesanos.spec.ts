@@ -1,13 +1,26 @@
-const request = require("supertest");
-const app = require("../../src/app");
+import request from "supertest";
+import server from "../src/server"
 
-describe("Test example", () => {
-  test("It should response the GET method", done => {
-    request(app)
-      .get("/")
+describe("Artesanos Tests", () => {
+  test("Connected to artesanos", done => {
+    request(server)
+      .get("/artesanos")
       .then(response => {
         expect(response.statusCode).toBe(200);
         done();
       });
   });
+
+  test("Artesanos body response", done => {
+    request(server)
+      .get("/artesanos")
+      .then(response => {
+        expect(response.body).toEqual({
+          exitoso: true
+        });
+        done();
+      });
+  });
+
+
 });
