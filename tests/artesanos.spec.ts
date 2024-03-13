@@ -2,7 +2,7 @@ import request from "supertest";
 import server from "../src/server"
 
 describe("Artesanos Tests", () => {
-  test("Connected to artesanos", done => {
+  test("", done => {
     request(server)
       .get("/artesanos")
       .then(response => {

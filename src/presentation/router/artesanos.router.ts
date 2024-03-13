@@ -1,16 +1,11 @@
 import express from 'express'
-import { Request, Response } from 'express'
+import ArtisiansControllers from '../../infrastructure/controllers/artisians.controllers'
 
 export default function ArstesanosRouter() {
   const router = express.Router()
+  const artisianController = new ArtisiansControllers()
 
-  router.get('/', async (req: Request, res: Response) => {
-    res
-      .status(200)
-      .json({
-        exitoso: true,
-      })
-  })
+  router.get('/', artisianController.getArtisianController)
 
   return router
 }

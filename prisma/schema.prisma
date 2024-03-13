@@ -6,3 +6,12 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model Artisans {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  CDG_COMUNIDAD   Int
+  CODIGO          Int
+  COMUNIDAD       String
+  DNI             Int
+  NOMBRE_COMPLETO String
+}
