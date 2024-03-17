@@ -23,6 +23,7 @@ module.exports = {
     'prefer-const': 'error',
     'semi': ["error", "never"],
     'quotes': ['error', 'single'],
+    "space-in-parens": ["error", "always"]
     
   },
 };

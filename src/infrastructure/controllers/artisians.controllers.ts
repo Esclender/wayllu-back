@@ -1,17 +1,10 @@
-import { RepositoriesInterfaces } from '../../domain/interfaces'
+import { expressControllersDto } from '../../domain/dtos'
+import { GetArtisianApplication } from '../applications'
 
-export default class ArtisiansControllers implements RepositoriesInterfaces.ArtisiansRepositories {
-  getArtisianController(): void {
-    throw new Error('Method not implemented.')
+
+export default class ArtisiansControllers {
+  async getArtisianByDni( dto: expressControllersDto ) {
+    const artisianData = await GetArtisianApplication.execute()
+    return dto.res.status( 200 ).json( artisianData )
   }
-  getArtisiansListController(): void {
-    throw new Error('Method not implemented.')
-  }
-  registerArtisianController(): void {
-    throw new Error('Method not implemented.')
-  }
-  updateArtisianInfoController(): void {
-    throw new Error('Method not implemented.')
-  }
-  
 }

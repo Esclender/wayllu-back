@@ -1,13 +1,10 @@
-//import { Request, Response } from 'express'
-
-// type paramsControllers = {
-//   req: Request,
-//   res: Response
-// }
+/* eslint-disable no-unused-vars */
+import { prismaGetListDto, prismaGetOneDocuemntDto, prismaPostDto, prismaPutDto } from '../../dtos'
+import { ArtisianEntity } from '../../entities'
 
 export default interface IArtisiansRepository {
-  getArtisianController() : void
-  getArtisiansListController() : void
-  registerArtisianController() : void
-  updateArtisianInfoController() : void
+  getArtisianDataRepo( dto: prismaGetOneDocuemntDto ) : Promise<ArtisianEntity | null>
+  getArtisiansListRepo( dto: prismaGetListDto ) : Promise<ArtisianEntity[]>
+  registerArtisianRepo( dto: prismaPostDto ) : Promise<ArtisianEntity>
+  updateArtisianInfoRepo( dto: prismaPutDto ) : Promise<ArtisianEntity>
 }
