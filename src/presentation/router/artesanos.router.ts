@@ -4,10 +4,11 @@ import ArtisiansControllers from '../../infrastructure/controllers/artisians.con
 
 const router = express.Router();
 
-// Define la ruta para obtener todos los artesanos
+
 router.get('/', ArtisiansControllers.getAllArtisans);
 
 export default router;
+
 /*
 export default function ArstesanosRouter() {
   const router = express.Router()
