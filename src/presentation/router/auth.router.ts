@@ -2,11 +2,11 @@ import express from 'express'
 import AuthControllers from '../../infrastructure/controllers/auth.controllers'
 
 
-export default function ArstesanosRouter() {
+export default function AuthRouter() {
   const router = express.Router()
   const authController = new AuthControllers()
 
-  router.get( '/', authController.login )
+  router.post( '/login', authController.login )
 
   return router
 }

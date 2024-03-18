@@ -6,14 +6,15 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 const Envs = new EnvsConfig()
+const PORT = Envs.getPort()
 
 
 http.createServer( server )
   .listen( 
-    Envs.getPort(),
+    PORT,
     () => {
       prisma.$connect()
       console.log( 'Connected' )
-      console.log( `Listening to http://localhost:${Envs.getPort()}/` )
+      console.log( `Listening to http://localhost:${PORT}/` )
     } 
   )

@@ -1,3 +1,5 @@
 export interface EnvsConfigInterface {
-   getPort() : String 
+   getPort() : string 
+   getJWTSecret() : string 
+   getJWTExpiredTime() : string 
 }

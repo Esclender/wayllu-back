@@ -4,5 +4,8 @@ export default interface Artisian {
   COMUNIDAD: string;
   DNI: number;
   NOMBRE_COMPLETO: string;
+  CLAVE: string;
   id: string;
+  URL_IMAGE: string | null;
+  EMAIL: string | null;
 }

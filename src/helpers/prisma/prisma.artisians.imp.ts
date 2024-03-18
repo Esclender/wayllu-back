@@ -1,6 +1,7 @@
 
 import { PrismaClient } from '@prisma/client'
 import { 
+  prismaGetCredentialsDocDto,
   prismaGetListDto, 
   prismaGetOneDocuemntDto, 
   prismaPostDto, 
@@ -13,11 +14,21 @@ const prisma = new PrismaClient()
 
 
 export default class PrismaArtisiansImplementation implements IArtisiansRepository {
+  async getArtisianDataByCredentialsRepo( dto: prismaGetCredentialsDocDto ): Promise<ArtisianEntity | null> {
+    return await prisma.artisans.findFirst( {
+      where: {
+        ...dto
+      }
+    } )
+  }
+
   async getArtisianDataRepo( dto: prismaGetOneDocuemntDto ): Promise<ArtisianEntity | null> {
     return await prisma.artisans.findUnique( {
       where: dto.filtro
     } )
   }
+
+
   async getArtisiansListRepo( dto: prismaGetListDto ): Promise<ArtisianEntity[]> {
     return await prisma.artisans.findMany( {
       where: dto.filtro

@@ -4,6 +4,8 @@ export type prismaGetOneDocuemntDto = {
   filtro: Pick<Artisian, 'id' | 'CODIGO' >
 }
 
+export type userAccessCredentialsDto = Pick<Artisian, 'DNI' | 'CLAVE' >
+
 export type prismaGetListDto = {
   filtro: Partial<Artisian >
 }
