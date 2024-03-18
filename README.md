@@ -81,7 +81,9 @@ Para desplegar este proyecto en desarrollo, utiliza:
 
 **Server:** Node, Express, TS, JEST, Firebase-sdk
 
+## System Requiremnts
 
+**Node Js** >= 20.11.1 (Recomendada) 
 
 
 
