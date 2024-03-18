@@ -3,7 +3,6 @@ import PrismaArtisiansImplementation from '../../../helpers/prisma/prisma.artisi
 
 
 export default class GetArtisianApplication {
-
   static async execute() {
     const prismaImp = new PrismaArtisiansImplementation()
     

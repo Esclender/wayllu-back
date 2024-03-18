@@ -9,6 +9,6 @@ server.use( morgan( 'dev' ) )
 server.use( express.json() )
 
 
-server.use( '/api/artesanos', ArstesanosRouter() )
+server.use( '/api/artesanos', ArstesanosRouter)
 
 export default server

@@ -1,4 +1,3 @@
-
 import { PrismaClient } from '@prisma/client'
 import { 
   prismaGetListDto, 
@@ -9,9 +8,7 @@ import {
 import { ArtisianEntity } from '../../domain/entities'
 import {IArtisiansRepository} from '../../domain/interfaces/repositories'
 
-const prisma = new PrismaClient()
-
-
+const prisma= new PrismaClient()
 export default class PrismaArtisiansImplementation implements IArtisiansRepository {
   async getArtisianDataRepo( dto: prismaGetOneDocuemntDto ): Promise<ArtisianEntity | null> {
     return await prisma.artisans.findUnique( {
@@ -29,7 +26,9 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
     } )
   }
   async updateArtisianInfoRepo( dto: prismaPutDto ): Promise<ArtisianEntity> {
+   
     return await prisma.artisans.update( 
+      
       {
         where: {
           id: dto.idArtisian,
