@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = "mongodb+srv://rachel11072003:fNsEBntjS2yoDt2t@Bd-Wayllu.tgscy2g.mongodb.net/Wayllu"
+  url      = "mongodb+srv://<nombre-user>:<password>@Bd-Wayllu.tgscy2g.mongodb.net/Wayllu"
 }
 
 model Artisans {
