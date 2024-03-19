@@ -8,13 +8,14 @@ datasource db {
 }
 
 model Artisans {
-  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
   NOMBRE_COMPLETO String
   DNI             Int
   COMUNIDAD       String
   CDG_COMUNIDAD   Int
-  CODIGO          Int     @unique
+  CODIGO          Int      @unique
   CLAVE           String
   EMAIL           String?
   URL_IMAGE       String?
+  FECHA_REGISTRO  DateTime
 }

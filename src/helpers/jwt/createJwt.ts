@@ -7,11 +7,12 @@ export default function createJWTByUsingUserData(
 ): string {
   const Envs = new EnvsConfig()
 
+  
   return JWT.sign( 
     payload, 
     Envs.getJWTSecret(), 
     {
-      expiresIn: Envs.getJWTExpiredTime()
+      expiresIn: '1h'
     } 
   )
 

@@ -23,7 +23,8 @@ describe("Auth Tests", () => {
       "CODIGO": 1001,
       "URL_IMAGE": "gs://wayllu.appspot.com/Artisans_Images/img1.jpeg",
       "CLAVE": "",
-      "EMAIL": null
+      "EMAIL": null,
+      "FECHA_REGISTRO": new Date("2024-03-19T12:17:28.950Z")
     }
 
     prismaImp.getArtisianDataByCredentialsRepo(credentials)
@@ -43,10 +44,12 @@ describe("Auth Tests", () => {
       "COMUNIDAD": "Huilloc",
       "CDG_COMUNIDAD": 1,
       "CODIGO": 1001,
-      "EMAIL": ""
+      "EMAIL": "",
+      "FECHA_REGISTRO": new Date("2024-03-19T12:17:28.950Z")
     }
 
     const tokenGenerated = createJwt(userData)
+
 
     expect(tokenGenerated).not.toBeNull()
     expect(tokenGenerated).not.toBe(undefined)
