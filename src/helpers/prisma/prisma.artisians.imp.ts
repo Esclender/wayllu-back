@@ -11,6 +11,7 @@ import {IArtisiansRepository} from '../../domain/interfaces/repositories'
 const prisma= new PrismaClient()
 export default class PrismaArtisiansImplementation implements IArtisiansRepository {
   async getArtisianDataRepo( dto: prismaGetOneDocuemntDto ): Promise<ArtisianEntity | null> {
+    
     return await prisma.artisans.findUnique( {
       where: dto.filtro
     } )
@@ -26,7 +27,6 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
     } )
   }
   async updateArtisianInfoRepo( dto: prismaPutDto ): Promise<ArtisianEntity> {
-   
     return await prisma.artisans.update( 
       
       {
