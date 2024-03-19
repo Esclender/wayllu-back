@@ -9,11 +9,11 @@ datasource db {
 
 model Artisans {
   id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  NOMBRE_COMPLETO String
+  DNI             Int
+  COMUNIDAD       String
   CDG_COMUNIDAD   Int
   CODIGO          Int     @unique
-  COMUNIDAD       String
-  DNI             Int
-  NOMBRE_COMPLETO String
   CLAVE           String
   EMAIL           String?
   URL_IMAGE       String?

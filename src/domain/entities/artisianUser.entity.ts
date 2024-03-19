@@ -1,8 +1,9 @@
-export default interface Artisian {
+
+export default interface Artisans {
   CDG_COMUNIDAD: number;
   CODIGO: number;
   COMUNIDAD: string;
-  DNI: number;
+  DNI: number ;
   NOMBRE_COMPLETO: string;
   CLAVE: string;
   id: string;
