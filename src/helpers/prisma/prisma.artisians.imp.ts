@@ -26,7 +26,9 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
 
 
   async getArtisiansListRepo(): Promise<ArtisianEntity[]> {
-    return await prisma.artisans.findMany( {} )
+    return await prisma.artisans.findMany( {
+    } )
+    
   }
 
   

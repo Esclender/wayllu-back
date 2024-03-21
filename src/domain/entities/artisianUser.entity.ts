@@ -12,3 +12,4 @@ export default interface Artisans {
   FECHA_REGISTRO: Date;
 }
 
+
