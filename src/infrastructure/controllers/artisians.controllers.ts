@@ -1,29 +1,44 @@
-
-import { Request, Response } from 'express'
+import {Response} from 'express'
 import { GetAllArtisansApplication, GetArtisianApplication } from '../applications'
+import { ResponseImplementation } from '../../helpers'
+import { CustomRequest } from '../../domain/dtos'
 
 export default class ArtisiansControllers {
-  async getArtisianByDni( req: Request, res: Response ) {
-    const artisianData = await GetArtisianApplication.execute( {
-      filtro: {
-        id: '',
-        CODIGO: 12345
-      }
-    } )
+  async getArtisianByDni( req: CustomRequest, res: Response ) {
+    try {
+      const artisianData = await GetArtisianApplication.execute( {
+        filtro: req.body
+      } )
 
-    return res.status( 200 ).json( artisianData )
 
+      ResponseImplementation( 
+        {
+          res: res, 
+          status: 200, 
+          data: artisianData
+        } )
+  
+    } catch ( error ) {
+
+      ResponseImplementation( 
+        {
+          res: res, 
+          status: 500, 
+          data: 'Error interno del servidor'
+        } )
+    }
   }
   
-  async getAllArtisians( req: Request, res: Response ) {
+  async getAllArtisians( req: CustomRequest, res: Response ) {
     try {
       const artisianAllData = await GetAllArtisansApplication.execute()
 
-      return res
-        .status( 200 )
-        .json( {
-          exitoso: true,
-          info: artisianAllData 
+      ResponseImplementation( 
+        {
+          res: res, 
+          status: 200, 
+          data: artisianAllData 
+
         } )
         
     } catch ( error ) {
