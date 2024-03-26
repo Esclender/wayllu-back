@@ -5,5 +5,5 @@ import { ArtisianEntity } from '../entities'
 export type responseDto = {
   res: Response,
   status: number,
-  data: string | Partial<ArtisianEntity> | Partial<ArtisianEntity>[] | null
+  data: string | Partial<ArtisianEntity> | Partial<ArtisianEntity>[] | null 
 }

@@ -3,17 +3,29 @@
 import { userAccessCredentialsDto } from '../../../domain/dtos'
 import { ArtisianEntity } from '../../../domain/entities'
 import {PrismaImplementation, createJwt} from '../../../helpers'
+import comparePasswords from '../../../helpers/bcrypt/comparePasswords'
 
 
 export default class GetUserJwtAccessApplication {
 
   static async execute( credentials: userAccessCredentialsDto ) {
     const prismaImp = new PrismaImplementation()
-    const {CLAVE, URL_IMAGE, ...userLoggedData } = await prismaImp.getArtisianDataByCredentialsRepo( credentials ) as ArtisianEntity
+    const {URL_IMAGE, ...userLoggedData } = await prismaImp.getArtisianDataByCredentialsRepo( credentials.DNI ) as ArtisianEntity
 
-    const jwtGenerated = createJwt( userLoggedData )
-    
+    await this._comparePasswords( credentials.CLAVE, userLoggedData.CLAVE )
+
+    const jwtGenerated = createJwt( {
+      ...userLoggedData,
+      CLAVE: credentials.CLAVE,
+    } )
     return jwtGenerated
+  }
+
+
+  private static async _comparePasswords( claveEntered: string, userClaveRegistered: string ) {
+    const arePasswordEqual = await comparePasswords( claveEntered, userClaveRegistered )
+    console.log( arePasswordEqual )
+    if( !arePasswordEqual ) throw new Error( 'Clave incorrecta' ) 
   }
   
 } 

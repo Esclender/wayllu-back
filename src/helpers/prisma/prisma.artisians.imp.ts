@@ -2,8 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import { 
   prismaGetOneDocuemntDto, 
   prismaPostDto, 
-  prismaPutDto, 
-  userAccessCredentialsDto
+  prismaPutDto,
 } from '../../domain/dtos'
 
 import { ArtisianEntity } from '../../domain/entities'
@@ -12,9 +11,11 @@ import {IArtisiansRepository} from '../../domain/interfaces/repositories'
 const prisma= new PrismaClient()
 
 export default class PrismaArtisiansImplementation implements IArtisiansRepository {
-  async getArtisianDataByCredentialsRepo( dto: userAccessCredentialsDto ): Promise<ArtisianEntity | null> {
+  async getArtisianDataByCredentialsRepo( DNI: number ): Promise<ArtisianEntity | null> {
     return await prisma.artisans.findFirst( {
-      where: dto
+      where: {
+        DNI
+      }
     } )
   }
 
