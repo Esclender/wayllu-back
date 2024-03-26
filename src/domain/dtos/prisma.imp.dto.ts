@@ -16,6 +16,7 @@ export type prismaPostDto = {
 
 export type prismaPutDto = {
   idArtisian: Partial<string>
-  codigoArtisian: number
-  artisianDataToUpdate: Artisian
+  artisianDataToUpdate: prismaPutUserData
 }
+
+export type prismaPutUserData = Partial<Omit<Artisian, 'id' | 'DNI' | 'FECHA_REGISTRO'>>

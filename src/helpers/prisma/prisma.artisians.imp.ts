@@ -41,7 +41,6 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
       {
         where: {
           id: dto.idArtisian,
-          CODIGO: dto.codigoArtisian
         },
         data: dto.artisianDataToUpdate
       }

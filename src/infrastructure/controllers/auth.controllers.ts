@@ -1,6 +1,6 @@
 
 import { Request, Response } from 'express'
-import { GetUserAccessApplication } from '../applications'
+import { GetUserAccessApplication, PutUserData } from '../applications'
 
 
 export default class AuthControllers {
@@ -13,6 +13,22 @@ export default class AuthControllers {
       exitoso: true,
       tokenAccesso: generatedJwtAccess
     } )
+  }
+
+  async updateUserData( req: Request, res: Response ) {
+  
+    try{
+      const {body, params} = req
+
+      await PutUserData.execute( {
+        idArtisian: params.id_artisian,
+        artisianDataToUpdate: body
+      } )
+
+      return res.status( 200 ).send()
+    }catch( error ) {
+      return res.status( 401 ).send( error )
+    }
   }
   
 }
