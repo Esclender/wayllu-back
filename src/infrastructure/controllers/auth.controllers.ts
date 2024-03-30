@@ -6,15 +6,18 @@ export default class AuthControllers {
   
   async login( req: Request, res: Response ) {
     try{
-      
-      const generatedJwtAccess = await GetUserAccessApplication.execute( req.body )
+      const {jwtGenerated, ROL} = await GetUserAccessApplication.execute( req.body )
 
       return res.json( {
         exitoso: true,
-        tokenAccesso: generatedJwtAccess
+        tokenAccesso: jwtGenerated,
+        ROL,
       } )
     }catch( error: any ) {
-      return res.status( 401 ).send( error.message )
+      return res.status( 401 ).json( {
+        exitoso: false,
+        message: error.message 
+      } )
     }
   }
 
@@ -28,8 +31,11 @@ export default class AuthControllers {
       } )
 
       return res.status( 200 ).send()
-    }catch( error ) {
-      return res.status( 401 ).send( error )
+    }catch( error: any ) {
+      return res.status( 401 ).send( {
+        exitoso: false,
+        message: error.message 
+      } )
     }
   }
   
