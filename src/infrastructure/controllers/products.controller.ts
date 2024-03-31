@@ -6,9 +6,9 @@ import { CustomRequest } from '../../domain/dtos'
 export default class ProductControllers {
   async getProductByCode( req: CustomRequest, res: Response ) {
     try {
-      const productData = await GetProductsApplication.execute(  {
+      const productData = await GetProductsApplication.execute( {
         filtro: req.body
-      })
+      } )
 
 
       ResponseImplementation( 
@@ -28,24 +28,24 @@ export default class ProductControllers {
         } )
     }
   }
-  async getAllProducts(req: CustomRequest, res: Response) {
+  async getAllProducts( req: CustomRequest, res: Response ) {
     try {
   
-      const productAllData = await GetAllProductsApplication.execute({
+      const productAllData = await GetAllProductsApplication.execute( {
         filtro: req.body
-      });
+      } )
   
-      ResponseImplementation({
+      ResponseImplementation( {
         res: res,
         status: 200,
         data: productAllData
-      });
-    } catch (error: any) {
-      console.log(error.message);
+      } )
+    } catch ( error: any ) {
+      console.log( error.message )
   
       return res
-        .status(500)
-        .json({ error: 'Error internos' });
+        .status( 500 )
+        .json( { error: 'Error internos' } )
     }
   }
 }

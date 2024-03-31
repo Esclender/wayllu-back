@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Productos } from '@prisma/client'
 import { 
   prismaGetListProductsDto, 
