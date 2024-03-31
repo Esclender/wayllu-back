@@ -7,15 +7,21 @@ datasource db {
   url      = "mongodb+srv://rachel11072003:fNsEBntjS2yoDt2t@Bd-Wayllu.tgscy2g.mongodb.net/Wayllu"
 }
 
-model Artisans {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+model Users {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
   NOMBRE_COMPLETO String
   DNI             Int
-  COMUNIDAD       String
-  CDG_COMUNIDAD   Int
-  CODIGO          Int      @unique
+  COMUNIDAD       String?
+  CDG_COMUNIDAD   Int?
+  CODIGO          Int?
   CLAVE           String
   EMAIL           String?
   URL_IMAGE       String?
-  FECHA_REGISTRO  DateTime
+  FECHA_REGISTRO  DateTime?
+  ROL             Roles     @default(ARTESANO)
+}
+
+enum Roles {
+  ARTESANO
+  ADMIN
 }

@@ -1,45 +1,46 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Users } from '@prisma/client'
 import { 
   prismaGetOneDocuemntDto, 
   prismaPostDto, 
-  prismaPutDto, 
-  userAccessCredentialsDto
+  prismaPutDto,
 } from '../../domain/dtos'
 
-import { ArtisianEntity } from '../../domain/entities'
 import {IArtisiansRepository} from '../../domain/interfaces/repositories'
 
 const prisma= new PrismaClient()
 
 export default class PrismaArtisiansImplementation implements IArtisiansRepository {
-  async getArtisianDataByCredentialsRepo( dto: userAccessCredentialsDto ): Promise<ArtisianEntity | null> {
-    return await prisma.artisans.findFirst( {
-      where: dto
+  async getArtisianDataByCredentialsRepo( DNI: number ): Promise<Users | null> {
+    return await prisma.users.findFirst( {
+      where: {
+        DNI
+      }
     } )
   }
 
-  async getArtisianDataRepo( dto: prismaGetOneDocuemntDto ): Promise<ArtisianEntity | null> {
-    return await prisma.artisans.findUnique( {
-      where: dto.filtro
+  async getArtisianDataRepo( dto: prismaGetOneDocuemntDto ): Promise<Users | null> {
+    return await prisma.users.findUnique( {
+      where: dto.filtro,
     } )
   }
 
 
-  async getArtisiansListRepo(): Promise<ArtisianEntity[]> {
-    return await prisma.artisans.findMany( {
+  async getArtisiansListRepo(): Promise<Users[]> {
+    return await prisma.users.findMany( {
+      where: {
+        ROL: 'ARTESANO'
+      }
     } )
-    
   }
 
   
-  async registerArtisianRepo( dto: prismaPostDto ): Promise<ArtisianEntity> {
-    return await prisma.artisans.create( {
+  async registerArtisianRepo( dto: prismaPostDto ): Promise<Users> {
+    return await prisma.users.create( {
       data: dto.artisianData
     } )
   }
-  async updateArtisianInfoRepo( dto: prismaPutDto ): Promise<ArtisianEntity> {
-    return await prisma.artisans.update( 
-      
+  async updateArtisianInfoRepo( dto: prismaPutDto ): Promise<Users> {
+    return await prisma.users.update( 
       {
         where: {
           id: dto.idArtisian,

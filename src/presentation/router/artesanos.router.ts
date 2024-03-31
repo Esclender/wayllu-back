@@ -9,7 +9,7 @@ export default function ArstesanosRouter() {
   const artisianController = new ArtisiansControllers()
 
   router.get( '/', [
-    isTokenPresent
+   // isTokenPresent
   ] , artisianController.getAllArtisians )
 
   return router

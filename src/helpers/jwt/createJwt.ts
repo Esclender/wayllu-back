@@ -1,13 +1,12 @@
 import * as JWT from 'jsonwebtoken'
 import EnvsConfig from '../../config/envs'
-import { ArtisianEntity } from '../../domain/entities'
+import { Users } from '@prisma/client'
 
 export default function createJWTByUsingUserData( 
-  payload: Omit<ArtisianEntity, 'CLAVE' | 'URL_IMAGE'> 
+  payload: Omit<Users, 'URL_IMAGE'> 
 ): string {
   const Envs = new EnvsConfig()
 
-  
   return JWT.sign( 
     payload, 
     Envs.getJWTSecret(), 

@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { Users } from '@prisma/client'
 import { 
   userAccessCredentialsDto, 
   prismaGetListDto, 
@@ -6,12 +7,11 @@ import {
   prismaPostDto, 
   prismaPutDto 
 } from '../../dtos'
-import { ArtisianEntity } from '../../entities'
 
 export default interface IArtisiansRepository {
-  getArtisianDataRepo( dto: prismaGetOneDocuemntDto ) : Promise<ArtisianEntity | null>
-  getArtisianDataByCredentialsRepo( dto: userAccessCredentialsDto ) : Promise<ArtisianEntity | null>
-  getArtisiansListRepo( dto: prismaGetListDto ) : Promise<ArtisianEntity[]>
-  registerArtisianRepo( dto: prismaPostDto ) : Promise<ArtisianEntity>
-  updateArtisianInfoRepo( dto: prismaPutDto ) : Promise<ArtisianEntity>
+  getArtisianDataRepo( dto: prismaGetOneDocuemntDto ) : Promise<Users | null>
+  getArtisianDataByCredentialsRepo( DNI: number ) : Promise<Users | null>
+  getArtisiansListRepo( dto: prismaGetListDto ) : Promise<Users[]>
+  registerArtisianRepo( dto: prismaPostDto ) : Promise<Users>
+  updateArtisianInfoRepo( dto: prismaPutDto ) : Promise<Users>
 }
