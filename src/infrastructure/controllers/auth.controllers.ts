@@ -26,8 +26,8 @@ export default class AuthControllers {
       const {body, params} = req
 
       await PutUserData.execute( {
-        idArtisian: params.id_artisian,
-        artisianDataToUpdate: body
+        idUser: params.id_artisian,
+        UsersDataToUpdate: body
       } )
 
       return res.status( 200 ).send()

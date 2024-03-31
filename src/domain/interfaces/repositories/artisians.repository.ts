@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Users } from '@prisma/client'
 import { 
-  userAccessCredentialsDto, 
   prismaGetListDto, 
   prismaGetOneDocuemntDto, 
   prismaPostDto, 

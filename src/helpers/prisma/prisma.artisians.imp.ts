@@ -1,5 +1,6 @@
 import { PrismaClient, Users } from '@prisma/client'
 import { 
+  prismaGetListDto,
   prismaGetOneDocuemntDto, 
   prismaPostDto, 
   prismaPutDto,
@@ -25,27 +26,30 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
   }
 
 
-  async getArtisiansListRepo(): Promise<Users[]> {
+  async getArtisiansListRepo( dto: prismaGetListDto ): Promise<Users[]> {
     return await prisma.users.findMany( {
       where: {
-        ROL: 'ARTESANO'
-      }
+        ROL: 'ARTESANO',
+        ...dto.filtro
+      },
+      skip: ( dto.pagina - 1 ) * 10,
+      take: 10,
     } )
   }
 
   
   async registerArtisianRepo( dto: prismaPostDto ): Promise<Users> {
     return await prisma.users.create( {
-      data: dto.artisianData
+      data: dto.UsersData
     } )
   }
   async updateArtisianInfoRepo( dto: prismaPutDto ): Promise<Users> {
     return await prisma.users.update( 
       {
         where: {
-          id: dto.idArtisian,
+          id: dto.idUser,
         },
-        data: dto.artisianDataToUpdate
+        data: dto.UsersDataToUpdate
       }
     )
   }
