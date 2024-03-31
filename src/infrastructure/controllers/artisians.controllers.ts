@@ -7,7 +7,8 @@ export default class ArtisiansControllers {
   async getArtisianByDni( req: CustomRequest, res: Response ) {
     try {
       const artisianData = await GetArtisianApplication.execute( {
-        filtro: req.body
+      filtro: req.body
+       
       } )
 
 

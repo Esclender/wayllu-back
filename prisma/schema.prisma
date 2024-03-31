@@ -21,6 +21,25 @@ model Users {
   ROL             Roles     @default(ARTESANO)
 }
 
+model Productos {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  ITEM            Int
+  ANCHO           Int?
+  ALTO            Int?
+  TIPO_PESO       String
+  PESO            Int?
+  CANTIDAD        Int
+  CATEGORIA       String
+  IMAGEN          String?
+  DESCRIPCION     String
+  COD_FAMILIA     Int
+  COD_ARTESANA    Int
+  COD_ORDEN_PRO   Int
+  COD_PRODUCTO    Int
+  FECHA_INGRESO   DateTime?
+  UBICACION       String?
+}
+
 enum Roles {
   ARTESANO
   ADMIN
