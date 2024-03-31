@@ -31,7 +31,9 @@ export default class ArtisiansControllers {
   
   async getAllArtisians( req: CustomRequest, res: Response ) {
     try {
-      const artisianAllData = await GetAllArtisansApplication.execute()
+      const { pagina } = req.query
+      
+      const artisianAllData = await GetAllArtisansApplication.execute( parseInt( pagina as string ) || 1 )
 
       ResponseImplementation( 
         {
@@ -41,11 +43,13 @@ export default class ArtisiansControllers {
 
         } )
         
-    } catch ( error ) {
+    } catch ( error : any ) {
+
+      console.log( error.message )
 
       return res
         .status( 500 )
-        .json( { error: 'Error interno del servidor' } )
+        .json( { error: 'Error internos' } )
     }
   }
 }

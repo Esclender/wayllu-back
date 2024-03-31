@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 
 import { Users } from '@prisma/client'
-import { userAccessCredentialsDto } from '../../../domain/dtos'
 import {PrismaImplementation, createJwt} from '../../../helpers'
 import comparePasswords from '../../../helpers/bcrypt/comparePasswords'
+import { UsersAccessCredentialsDto } from '../../../domain/dtos'
 
 
 export default class GetUserJwtAccessApplication {
 
-  static async execute( credentials: userAccessCredentialsDto ) {
+  static async execute( credentials: UsersAccessCredentialsDto ) {
     const prismaImp = new PrismaImplementation()
     const {URL_IMAGE, ...userLoggedData } = await prismaImp.getArtisianDataByCredentialsRepo( credentials.DNI ) as Users
 

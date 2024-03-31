@@ -1,22 +1,24 @@
-import Artisian from '../entities/artisianUser.entity'
+import { Users } from '@prisma/client'
+
 
 export type prismaGetOneDocuemntDto = {
-  filtro: Pick<Artisian, 'id' | 'CODIGO' >
+  filtro: Pick<Users, 'id' | 'CODIGO' >
 }
 
-export type userAccessCredentialsDto = Pick<Artisian, 'DNI' | 'CLAVE' >
+export type UsersAccessCredentialsDto = Pick<Users, 'DNI' | 'CLAVE' >
 
 export type prismaGetListDto = {
-  filtro: Partial<Artisian >
+  filtro: Partial<Users>,
+  pagina: number
 }
 
 export type prismaPostDto = {
-  artisianData: Artisian
+  UsersData: Users
 }
 
 export type prismaPutDto = {
-  idArtisian: Partial<string>
-  artisianDataToUpdate: prismaPutUserData
+  idUser: Partial<string>
+  UsersDataToUpdate: prismaPutUsersData
 }
 
-export type prismaPutUserData = Partial<Omit<Artisian, 'id' | 'DNI' | 'FECHA_REGISTRO'>>
+export type prismaPutUsersData = Partial<Omit<Users, 'id' | 'DNI' | 'FECHA_REGISTRO'>>
