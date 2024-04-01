@@ -10,7 +10,7 @@ import {
 export default interface IArtisiansRepository {
   getArtisianDataRepo( dto: prismaGetOneDocuemntDto ) : Promise<Users | null>
   getArtisianDataByCredentialsRepo( DNI: number ) : Promise<Users | null>
-  getArtisiansListRepo( dto: prismaGetListDto ) : any
+  getArtisiansListRepo( dto: prismaGetListDto ) : Promise<any>
   registerArtisianRepo( dto: prismaPostDto ) : Promise<Users>
   updateArtisianInfoRepo( dto: prismaPutDto ) : Promise<Users>
 }

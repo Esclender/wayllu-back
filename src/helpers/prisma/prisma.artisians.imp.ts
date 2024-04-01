@@ -43,6 +43,7 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
         $limit: 10
       }
     ]
+    
 
     return await prisma.users.aggregateRaw(
       {
