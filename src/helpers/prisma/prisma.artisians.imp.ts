@@ -25,16 +25,30 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
     } )
   }
 
-
-  async getArtisiansListRepo( dto: prismaGetListDto ): Promise<Users[]> {
-    return await prisma.users.findMany( {
-      where: {
-        ROL: 'ARTESANO',
-        ...dto.filtro
+  async getArtisiansListRepo( dto: prismaGetListDto ) {
+    const aggregate = [
+      {
+        $match: {
+          ROL: 'ARTESANO',
+          NOMBRE_COMPLETO: {
+            $regex: dto.filtro.NOMBRE_COMPLETO,
+            $options: 'i',
+          },
+        },
       },
-      skip: ( dto.pagina - 1 ) * 10,
-      take: 10,
-    } )
+      {
+        $skip: ( dto.pagina - 1 ) * 10,
+      },
+      {
+        $limit: 10
+      }
+    ]
+
+    return await prisma.users.aggregateRaw(
+      {
+        pipeline : aggregate
+      }
+    )
   }
 
   

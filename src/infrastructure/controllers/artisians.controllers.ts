@@ -7,8 +7,7 @@ export default class ArtisiansControllers {
   async getArtisianByDni( req: CustomRequest, res: Response ) {
     try {
       const artisianData = await GetArtisianApplication.execute( {
-      filtro: req.body
-       
+        filtro: req.body
       } )
 
 
@@ -19,22 +18,22 @@ export default class ArtisiansControllers {
           data: artisianData
         } )
   
-    } catch ( error ) {
+    } catch ( error: any ) {
 
       ResponseImplementation( 
         {
           res: res, 
           status: 500, 
-          data: 'Error interno del servidor'
+          data: error.message
         } )
     }
   }
   
   async getAllArtisians( req: CustomRequest, res: Response ) {
     try {
-      const { pagina } = req.query
+      const { pagina, nombre } = req.query
       
-      const artisianAllData = await GetAllArtisansApplication.execute( parseInt( pagina as string ) || 1 )
+      const artisianAllData = await GetAllArtisansApplication.execute( parseInt( pagina as string ) || 1, String( nombre ).toLowerCase() )
 
       ResponseImplementation( 
         {
@@ -46,11 +45,13 @@ export default class ArtisiansControllers {
         
     } catch ( error : any ) {
 
-      console.log( error.message )
+      return ResponseImplementation( 
+        {
+          res: res, 
+          status: 500, 
+          data: error.message 
 
-      return res
-        .status( 500 )
-        .json( { error: 'Error internos' } )
+        } )
     }
   }
 }
