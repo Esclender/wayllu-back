@@ -30,10 +30,8 @@ export default class ProductControllers {
   }
   async getAllProducts( req: CustomRequest, res: Response ) {
     try {
-  
-      const productAllData = await GetAllProductsApplication.execute( {
-        filtro: req.body
-      } )
+
+      const productAllData = await GetAllProductsApplication.execute( req.jwt )
   
       ResponseImplementation( {
         res: res,
