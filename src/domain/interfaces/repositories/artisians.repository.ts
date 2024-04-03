@@ -5,7 +5,8 @@ import {
   prismaGetListDto, 
   prismaGetOneDocuemntDto, 
   prismaPostDto, 
-  prismaPutDto 
+  prismaPutDto, 
+  prismaUpdateImageDto
 } from '../../dtos'
 
 export default interface IArtisiansRepository {
@@ -14,4 +15,5 @@ export default interface IArtisiansRepository {
   getArtisiansListRepo( dto: prismaGetListDto ) : Promise<Users[]>
   registerArtisianRepo( dto: prismaPostDto ) : Promise<Users>
   updateArtisianInfoRepo( dto: prismaPutDto ) : Promise<Users>
+  updateArtisianImage(dto: prismaUpdateImageDto) :Promise<Users>
 }

@@ -1,8 +1,9 @@
-import { PrismaClient, Users } from '@prisma/client'
+import { $Enums, PrismaClient, Users } from '@prisma/client'
 import { 
   prismaGetOneDocuemntDto, 
   prismaPostDto, 
   prismaPutDto,
+  prismaUpdateImageDto,
 } from '../../domain/dtos'
 
 import {IArtisiansRepository} from '../../domain/interfaces/repositories'
@@ -17,7 +18,7 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
       }
     } )
   }
-
+  
   async getArtisianDataRepo( dto: prismaGetOneDocuemntDto ): Promise<Users | null> {
     return await prisma.users.findUnique( {
       where: dto.filtro,
@@ -32,7 +33,7 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
       }
     } )
   }
-
+  
   
   async registerArtisianRepo( dto: prismaPostDto ): Promise<Users> {
     return await prisma.users.create( {
@@ -45,9 +46,21 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
         where: {
           id: dto.idArtisian,
         },
-        data: dto.artisianDataToUpdate
+        data: dto.artisianDataToUpdate,
       }
-    )
-  }
+      )
+    }
+
+    async updateArtisianImage(dto: prismaUpdateImageDto): Promise<Users> {
+      return await prisma.users.update( 
+        {
+          where: {
+            id: dto.idArtisian,
+          },
+          data: {
+            URL_IMAGE:dto.URL_IMAGE,
+        }
+      })
+    }
 
 }

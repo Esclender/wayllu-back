@@ -10,6 +10,11 @@ export type prismaGetListDto = {
   filtro: Partial<Artisian >
 }
 
+export type prismaUpdateImageDto = {
+  idArtisian: string;
+  URL_IMAGE: string;
+};
+
 export type prismaPostDto = {
   artisianData: Artisian
 }
@@ -19,4 +24,4 @@ export type prismaPutDto = {
   artisianDataToUpdate: prismaPutUserData
 }
 
-export type prismaPutUserData = Partial<Omit<Artisian, 'id' | 'DNI' | 'FECHA_REGISTRO'>>
+export type prismaPutUserData = Partial<Omit<Artisian, 'id' | 'DNI' | 'FECHA_REGISTRO'>> & { URL_IMAGE?: string | null }; // Hacer URL_IMAGE opcional en artisianDataToUpdate

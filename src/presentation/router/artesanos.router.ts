@@ -12,5 +12,9 @@ export default function ArstesanosRouter() {
     isTokenPresent
   ] , artisianController.getAllArtisians )
 
+  router.put('/update/:id_artisian/image', [
+    isTokenPresent // Middleware de autenticación si es necesario
+  ], artisianController.updateArtisanDataImage);
+
   return router
 }
