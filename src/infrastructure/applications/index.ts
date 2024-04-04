@@ -11,3 +11,5 @@ export { default as PutProductData } from './auth/PutProductData.application'
 export { default as GetAllProductsApplication} from './products/getAllProducts.application'
 
 export { default as GetProductsApplication} from './products/getProduct.application'
+
+export { default as CheckoutVenta} from './products/checkoutVenta.application'

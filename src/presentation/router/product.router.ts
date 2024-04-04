@@ -12,5 +12,9 @@ export default function ProductosRouter() {
     isTokenPresent
   ] , productsController.getAllProducts )
 
+  router.post( '/venta', [
+    isTokenPresent
+  ] , productsController.checkoutVenta )
+
   return router
 }

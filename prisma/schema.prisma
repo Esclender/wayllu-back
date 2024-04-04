@@ -22,7 +22,7 @@ model Users {
 }
 
 model Productos {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
   ITEM          Int
   ANCHO         Int?
   ALTO          Int?
@@ -36,8 +36,27 @@ model Productos {
   COD_ARTESANA  Int
   COD_ORDEN_PRO Int
   COD_PRODUCTO  Int
-  FECHA_INGRESO DateTime?
+  FECHA_INGRESO DateTime @default(now())
   UBICACION     String?
+}
+
+model RegistrosVentas {
+  id                       String    @id @default(auto()) @map("_id") @db.ObjectId
+  CODIGO_REGISTRO          String?   @default(uuid())
+  FECHA_REGISTRO           DateTime? @default(now())
+  CANTIDAD_TOTAL_PRODUCTOS Int
+  ESTADO                   Boolean?  @default(true)
+  PRODUCTOS                Venta[]
+}
+
+model Venta {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  CANTIDAD Int
+  IMAGEN   String?
+  ITEM     Int
+
+  RegistrosVentas   RegistrosVentas? @relation(fields: [registrosVentasId], references: [id])
+  registrosVentasId String?          @db.ObjectId
 }
 
 enum Roles {

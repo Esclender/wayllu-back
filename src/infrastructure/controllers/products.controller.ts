@@ -1,5 +1,5 @@
 import {Response} from 'express'
-import { GetAllProductsApplication, GetProductsApplication } from '../applications'
+import { GetAllProductsApplication, GetProductsApplication, CheckoutVenta } from '../applications'
 import { ResponseImplementation } from '../../helpers'
 import { CustomRequest } from '../../domain/dtos'
 
@@ -28,6 +28,7 @@ export default class ProductControllers {
         } )
     }
   }
+
   async getAllProducts( req: CustomRequest, res: Response ) {
     try {
 
@@ -39,7 +40,24 @@ export default class ProductControllers {
         data: productAllData
       } )
     } catch ( error: any ) {
-      console.log( error.message )
+  
+      return res
+        .status( 500 )
+        .json( { error: 'Error internos' } )
+    }
+  }
+
+  async checkoutVenta( req: CustomRequest, res: Response ) {
+    try {
+
+      await CheckoutVenta.execute()
+  
+      ResponseImplementation( {
+        res: res,
+        status: 200,
+        data: null
+      } )
+    } catch ( error: any ) {
   
       return res
         .status( 500 )

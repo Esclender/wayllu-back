@@ -4,6 +4,7 @@ import {
   prismaGetListProductsDto, 
   prismaGetOneProductDto, 
   prismaPostProductDto, 
+  prismaProductoVendido, 
   prismaPutProductDto, 
 } from '../../dtos'
 
@@ -13,4 +14,5 @@ export default interface IProductRepository {
   getAllProducts( dto: prismaGetListProductsDto ) : Promise<Productos[]>
   registerProductRepo( dto: prismaPostProductDto ) : Promise<Productos>
   updateProductInfoRepo( dto: prismaPutProductDto ) : Promise<Productos>
+  registerVenta( dto: prismaProductoVendido ) : Promise<void>
 }

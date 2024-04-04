@@ -3,6 +3,7 @@ import {
   prismaGetListProductsDto,
   prismaGetOneProductDto, 
   prismaPostProductDto, 
+  prismaProductoVendido, 
   prismaPutProductDto,
 } from '../../domain/dtos'
 
@@ -11,6 +12,7 @@ import { IProductRepository } from '../../domain/interfaces/repositories'
 const prisma= new PrismaClient()
 
 export default class PrismaProductsImplementation implements IProductRepository {
+  
   async getProductsByCredentialsRepo( COD_PRODUCTO: number ): Promise<Productos | null> {
     return await prisma.productos.findFirst( {
       where: {
@@ -49,6 +51,22 @@ export default class PrismaProductsImplementation implements IProductRepository 
         data: dto.ProductDataToUpdate,
       }
     )
+  }
+
+  async registerVenta( dto: prismaProductoVendido ): Promise<void> {
+    const venta = await prisma.registrosVentas.create( {
+      data: {
+        ...dto.data,
+        PRODUCTOS: {
+          create: dto.PRODUCTOS
+        }
+      },
+      include: {
+        PRODUCTOS: true
+      }
+    } )
+
+    console.log( venta )
   }
 
 }

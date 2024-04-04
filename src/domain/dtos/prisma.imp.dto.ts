@@ -1,4 +1,4 @@
-import { Users } from '@prisma/client'
+import { RegistrosVentas, Users, Venta } from '@prisma/client'
 import { Productos } from '@prisma/client'
 
 export type prismaGetOneDocuemntDto = {
@@ -46,4 +46,9 @@ export type prismaPutProductData = Partial<Omit<Productos, 'id' | 'FECHA_INGRESO
 
 export type prismaDeleteProductDto = {
   id: string
+}
+
+export type prismaProductoVendido = {
+  data: Partial<Omit<RegistrosVentas, 'id'>>,
+  PRODUCTOS: Omit<Venta, 'id' | 'registrosVentasId'>[]
 }
