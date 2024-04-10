@@ -56,7 +56,7 @@ export default class PrismaProductsImplementation implements IProductRepository 
   async registerVenta( dto: prismaProductoVendido ): Promise<void> {
     const venta = await prisma.registrosVentas.create( {
       data: {
-        ...dto.data,
+        CANTIDAD_TOTAL_PRODUCTOS: dto.CANTIDAD_TOTAL_PRODUCTOS,
         PRODUCTOS: {
           create: dto.PRODUCTOS
         }

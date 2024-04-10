@@ -50,7 +50,7 @@ export default class ProductControllers {
   async checkoutVenta( req: CustomRequest, res: Response ) {
     try {
 
-      await CheckoutVenta.execute()
+      await CheckoutVenta.execute( req.body )
   
       ResponseImplementation( {
         res: res,

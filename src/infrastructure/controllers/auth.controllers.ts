@@ -1,6 +1,7 @@
 
 import { Request, Response } from 'express'
 import { GetUserAccessApplication, PutUserData, PutProductData } from '../applications'
+import { CustomRequest } from '../../domain/dtos'
 
 export default class AuthControllers {
   
@@ -13,6 +14,17 @@ export default class AuthControllers {
         tokenAccesso: jwtGenerated,
         ROL,
       } )
+    }catch( error: any ) {
+      return res.status( 401 ).json( {
+        exitoso: false,
+        message: error.message 
+      } )
+    }
+  }
+
+  async getLoggedUserData( req: CustomRequest, res: Response ) {
+    try{
+      return res.json( req.jwt )
     }catch( error: any ) {
       return res.status( 401 ).json( {
         exitoso: false,

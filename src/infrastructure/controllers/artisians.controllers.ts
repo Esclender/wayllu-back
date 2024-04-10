@@ -4,6 +4,8 @@ import { ResponseImplementation } from '../../helpers'
 import { CustomRequest } from '../../domain/dtos'
 
 export default class ArtisiansControllers {
+
+
   async getArtisianByDni( req: CustomRequest, res: Response ) {
     try {
       const artisianData = await GetArtisianApplication.execute( {

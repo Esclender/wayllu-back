@@ -1,6 +1,6 @@
 import express from 'express'
 import AuthControllers from '../../infrastructure/controllers/auth.controllers'
-import {isClaveToUpdate} from '../../infrastructure/middlewares'
+import {isClaveToUpdate, isTokenPresent} from '../../infrastructure/middlewares'
 
 
 export default function AuthRouter() {
@@ -8,6 +8,8 @@ export default function AuthRouter() {
   const authController = new AuthControllers()
 
   router.post( '/login', authController.login )
+
+  router.get( '/login/info',[isTokenPresent], authController.getLoggedUserData )
   
   router.put( '/update/:id_artisian',[isClaveToUpdate], authController.updateUserData )
 

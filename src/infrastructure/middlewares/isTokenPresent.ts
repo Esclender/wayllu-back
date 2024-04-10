@@ -7,7 +7,7 @@ export default function isTokenPresent( req: CustomRequest, res: Response,next: 
   try{
     const header = req.headers['authorization'] as string
     const token = header?.split( ' ' )[1]
-  
+
     if( !token ) {
       return ResponseImplementation( 
         {
