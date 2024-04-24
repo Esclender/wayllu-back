@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Productos } from '@prisma/client'
+import { Productos, RegistrosVentas } from '@prisma/client'
 import { 
   prismaGetListProductsDto, 
   prismaGetOneProductDto, 
@@ -14,5 +14,5 @@ export default interface IProductRepository {
   getAllProducts( dto: prismaGetListProductsDto ) : Promise<Productos[]>
   registerProductRepo( dto: prismaPostProductDto ) : Promise<Productos>
   updateProductInfoRepo( dto: prismaPutProductDto ) : Promise<Productos>
-  registerVenta( dto: prismaProductoVendido ) : Promise<void>
+  registerVenta( dto: prismaProductoVendido ) : Promise<RegistrosVentas>
 }

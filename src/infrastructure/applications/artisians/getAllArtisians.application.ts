@@ -2,12 +2,12 @@
 import PrismaArtisiansImplementation from '../../../helpers/prisma/prisma.artisians.imp'
 
 export default class GetAllArtisansApplication {
-  static async execute( pagina : number, nombre : string ) {
+  static async execute( pagina : number, nombre : string | null ) {
     const prismaImp = new PrismaArtisiansImplementation()
     const response : any = await prismaImp.getArtisiansListRepo( {
       pagina, 
       filtro: {
-        NOMBRE_COMPLETO: nombre
+        NOMBRE_COMPLETO: nombre ?? ''
       }
     } ) 
     
@@ -16,7 +16,6 @@ export default class GetAllArtisansApplication {
       const {_id, FECHA_REGISTRO, ...DATA} = artesano
       const id = artesano._id['$oid']
       const fecha = response[0].FECHA_REGISTRO['$date']
-
 
       return {
         id,

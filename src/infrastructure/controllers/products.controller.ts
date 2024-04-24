@@ -49,19 +49,21 @@ export default class ProductControllers {
 
   async checkoutVenta( req: CustomRequest, res: Response ) {
     try {
-
-      await CheckoutVenta.execute( req.body )
+      const data = await CheckoutVenta.execute( req.body )
   
       ResponseImplementation( {
         res: res,
         status: 200,
-        data: null
+        data: {
+          ...data,
+          ...req.body
+        }
       } )
     } catch ( error: any ) {
-  
+      
       return res
         .status( 500 )
-        .json( { error: 'Error internos' } )
+        .json( { error: error.message} )
     }
   }
 }

@@ -1,4 +1,4 @@
-import { PrismaClient, Productos } from '@prisma/client'
+import { PrismaClient, Productos, RegistrosVentas } from '@prisma/client'
 import { 
   prismaGetListProductsDto,
   prismaGetOneProductDto, 
@@ -8,6 +8,7 @@ import {
 } from '../../domain/dtos'
 
 import { IProductRepository } from '../../domain/interfaces/repositories'
+import { GenerateUuid } from '..'
 
 const prisma= new PrismaClient()
 
@@ -53,9 +54,10 @@ export default class PrismaProductsImplementation implements IProductRepository 
     )
   }
 
-  async registerVenta( dto: prismaProductoVendido ): Promise<void> {
+  async registerVenta( dto: prismaProductoVendido ): Promise<RegistrosVentas> {
     const venta = await prisma.registrosVentas.create( {
       data: {
+        CODIGO_REGISTRO: GenerateUuid().toString(),
         CANTIDAD_TOTAL_PRODUCTOS: dto.CANTIDAD_TOTAL_PRODUCTOS,
         PRODUCTOS: {
           create: dto.PRODUCTOS
@@ -66,7 +68,8 @@ export default class PrismaProductsImplementation implements IProductRepository 
       }
     } )
 
-    console.log( venta )
+
+    return venta
   }
 
 }

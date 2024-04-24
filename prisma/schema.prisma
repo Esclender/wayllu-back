@@ -42,18 +42,18 @@ model Productos {
 
 model RegistrosVentas {
   id                       String    @id @default(auto()) @map("_id") @db.ObjectId
-  CODIGO_REGISTRO          String?   @default(uuid())
   FECHA_REGISTRO           DateTime? @default(now())
+  CODIGO_REGISTRO          String
   CANTIDAD_TOTAL_PRODUCTOS Int
   ESTADO                   Boolean?  @default(true)
   PRODUCTOS                Venta[]
 }
 
 model Venta {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  CANTIDAD Int
-  IMAGEN   String?
-  ITEM     Int
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  CANTIDAD    Int
+  DESCRIPCION String
+  ITEM        Int
 
   RegistrosVentas   RegistrosVentas? @relation(fields: [registrosVentasId], references: [id])
   registrosVentasId String?          @db.ObjectId

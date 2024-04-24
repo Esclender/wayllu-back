@@ -35,7 +35,9 @@ export default class ArtisiansControllers {
     try {
       const { pagina, nombre } = req.query
       
-      const artisianAllData = await GetAllArtisansApplication.execute( parseInt( pagina as string ) || 1, String( nombre ).toLowerCase() )
+      const artisianAllData = await GetAllArtisansApplication.execute( parseInt( 
+        pagina as string ) || 1, nombre != undefined ? String( nombre ).toLowerCase() : null 
+      )
 
       ResponseImplementation( 
         {
