@@ -16,5 +16,13 @@ export default function ProductosRouter() {
     isTokenPresent
   ] , productsController.checkoutVenta )
 
+  router.get( '/ventas/:mes?', [
+   // isTokenPresent
+  ], productsController.allVenta)
+
+  router.get('/ventas/:mes?/:semana?', [
+    // isTokenPresent
+], productsController.allVenta);
+
   return router
 }

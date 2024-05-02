@@ -6,9 +6,11 @@ export default class CheckoutVenta {
     const prismaImp = new PrismaProductsImplementation()
     const PRODUCTOS = dto.PRODUCTOS.map( ( producto ) => {
       return {
-        'ITEM': producto.ITEM,
+        'COD_PRODUCTO': producto.COD_PRODUCTO,
+        'FECHA_REGISTRO': producto.FECHA_REGISTRO,
         'CANTIDAD': producto.CANTIDAD,
-        'DESCRIPCION': producto.DESCRIPCION
+        'DESCRIPCION': producto.DESCRIPCION,
+        'IMAGEN': producto.IMAGEN
       }
     } )
 

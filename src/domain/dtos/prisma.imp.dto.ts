@@ -57,3 +57,7 @@ export type prismaProductoVendido = {
 export type prismaProductosVenta = {
   PRODUCTOS: Omit<Venta, 'id' | 'registrosVentasId'>[]
 }
+
+export type prismaGetAllVentas = {
+  filtro?: Partial<Venta> & { mes?: number; semana?: number }; 
+};

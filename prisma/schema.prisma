@@ -51,9 +51,11 @@ model RegistrosVentas {
 
 model Venta {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
+  FECHA_REGISTRO  DateTime? @default(now())
   CANTIDAD    Int
   DESCRIPCION String
-  ITEM        Int
+  IMAGEN      String?
+  COD_PRODUCTO  Int
 
   RegistrosVentas   RegistrosVentas? @relation(fields: [registrosVentasId], references: [id])
   registrosVentasId String?          @db.ObjectId
