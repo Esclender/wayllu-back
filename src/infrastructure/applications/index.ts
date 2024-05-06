@@ -15,3 +15,5 @@ export { default as GetAllProductsApplication} from './products/getAllProducts.a
 export { default as GetProductsApplication} from './products/getProduct.application'
 
 export { default as CheckoutVenta} from './products/checkoutVenta.application'
+
+export { default as GetAllVentas } from './sales/getAllSales.application'
