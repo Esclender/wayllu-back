@@ -12,6 +12,11 @@ export type prismaGetListDto = {
   pagina: number
 }
 
+export type prismaUpdateImageDto = {
+  idArtisian: string;
+  URL_IMAGE: string;
+};
+
 export type prismaPostDto = {
   UsersData: Users
 }
@@ -61,3 +66,4 @@ export type prismaProductosVenta = {
 export type prismaGetAllVentas = {
   filtro?: Partial<Venta> & { mes?: number; semana?: number }; 
 };
+ & { URL_IMAGE?: string | null }; // Hacer URL_IMAGE opcional en artisianDataToUpdate
