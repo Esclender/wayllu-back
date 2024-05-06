@@ -11,7 +11,7 @@ export default function AuthRouter() {
 
   router.get( '/login/info',[isTokenPresent], authController.getLoggedUserData )
   
-  router.put( '/update/:id_artisian',[isClaveToUpdate], authController.updateUserData )
+  router.put( '/update',[isTokenPresent, isClaveToUpdate], authController.updateUserData )
 
   return router
 }

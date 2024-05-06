@@ -2,7 +2,7 @@ import { Users, Venta } from '@prisma/client'
 import { Productos } from '@prisma/client'
 
 export type prismaGetOneDocuemntDto = {
-  filtro: Pick<Users, 'id' | 'CODIGO' >
+  filtro: Pick<Users, 'id' >
 }
 
 export type UsersAccessCredentialsDto = Pick<Users, 'DNI' | 'CLAVE' >

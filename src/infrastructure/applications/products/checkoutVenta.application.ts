@@ -8,7 +8,8 @@ export default class CheckoutVenta {
       return {
         'ITEM': producto.ITEM,
         'CANTIDAD': producto.CANTIDAD,
-        'DESCRIPCION': producto.DESCRIPCION
+        'DESCRIPCION': producto.DESCRIPCION,
+        'FECHA_REGISTRO': new Date()
       }
     } )
 

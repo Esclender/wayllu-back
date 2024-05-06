@@ -16,6 +16,7 @@ model Users {
   CODIGO          Int?
   CLAVE           String
   EMAIL           String?
+  TELEFONO        String?
   URL_IMAGE       String?
   FECHA_REGISTRO  DateTime?
   ROL             Roles     @default(ARTESANO)
@@ -50,11 +51,11 @@ model RegistrosVentas {
 }
 
 model Venta {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  CANTIDAD    Int
-  DESCRIPCION String
-  ITEM        Int
-
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  CANTIDAD          Int
+  DESCRIPCION       String
+  ITEM              Int
+  FECHA_REGISTRO    DateTime?        @default(now())
   RegistrosVentas   RegistrosVentas? @relation(fields: [registrosVentasId], references: [id])
   registrosVentasId String?          @db.ObjectId
 }

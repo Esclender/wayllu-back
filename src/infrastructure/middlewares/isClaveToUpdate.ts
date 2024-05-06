@@ -3,6 +3,7 @@ import { EncryptPassword } from '../../helpers'
 
 export default async function isClaveToUpdate( req: Request, res: Response, next: NextFunction ) {
   const {body} = req
+  
 
   if( body.CLAVE ) {
     req.body = {

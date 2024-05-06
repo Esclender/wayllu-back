@@ -1,6 +1,6 @@
 
 import { Request, Response } from 'express'
-import { GetUserAccessApplication, PutUserData, PutProductData } from '../applications'
+import { GetUserAccessApplication, PutUserData, PutProductData, GetLoggedUserData } from '../applications'
 import { CustomRequest } from '../../domain/dtos'
 
 export default class AuthControllers {
@@ -24,7 +24,10 @@ export default class AuthControllers {
 
   async getLoggedUserData( req: CustomRequest, res: Response ) {
     try{
-      return res.json( req.jwt )
+
+      const userData = await GetLoggedUserData.execute( req.jwt.id )
+
+      return res.json( userData )
     }catch( error: any ) {
       return res.status( 401 ).json( {
         exitoso: false,
@@ -33,17 +36,18 @@ export default class AuthControllers {
     }
   }
 
-  async updateUserData( req: Request, res: Response ) {
+  async updateUserData( req: CustomRequest, res: Response ) {
     try{
-      const {body, params} = req
+      const {body, jwt} = req
 
       await PutUserData.execute( {
-        idUser: params.id_artisian,
+        idUser: jwt.id,
         UsersDataToUpdate: body
       } )
 
       return res.status( 200 ).send()
     }catch( error: any ) {
+      console.log( error.message )
       return res.status( 401 ).send( {
         exitoso: false,
         message: error.message 

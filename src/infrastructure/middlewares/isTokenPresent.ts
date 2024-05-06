@@ -19,6 +19,7 @@ export default function isTokenPresent( req: CustomRequest, res: Response,next: 
   
     req.jwt = decodeJwtToken( token )
   }catch( e: any ) {
+    console.log( e.message )
     return ResponseImplementation( 
       {
         res: res, 

@@ -6,9 +6,10 @@ import {PrismaImplementation} from '../../../helpers'
 
 export default class PutUserData {
 
-  static async execute( dataToUdate: prismaPutDto ) {
+  static async execute( dataToUpdate: prismaPutDto ) {
     const prismaImp = new PrismaImplementation()
-    await prismaImp.updateArtisianInfoRepo( dataToUdate )
+
+    await prismaImp.updateArtisianInfoRepo( dataToUpdate )
 
   }
   

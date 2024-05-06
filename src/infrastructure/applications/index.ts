@@ -4,6 +4,8 @@ export { default as GetAllArtisansApplication } from './artisians/getAllArtisian
 
 export { default as GetUserAccessApplication } from './auth/GetUserJwtAccessApplication.application'
 
+export { default as GetLoggedUserData } from './auth/GetLoggedUserInfo.application'
+
 export { default as PutUserData } from './auth/PutUserData.application'
 
 export { default as PutProductData } from './auth/PutProductData.application'
