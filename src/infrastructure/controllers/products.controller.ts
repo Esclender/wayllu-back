@@ -92,10 +92,9 @@ export default class ProductControllers {
       ResponseImplementation( {
         res: res,
         status: 200,
-        data: {
-          ...data,
-          ...req.body
-        }
+        data: data,
+        
+      
       } )
     } catch ( error: any ) {
       

@@ -5,7 +5,7 @@ import PrismaProductsImplementation from "../../../helpers/prisma/prisma.product
 export default class GetAllVentas {
     static async execute(prop : number | null, mes: number|null, semana: number |null ): Promise<Venta[]> {
       const prismaImp = new PrismaProductsImplementation();
-      const response : Venta[] = await prismaImp.getAllVentasRepo( { 
+      const response : any = await prismaImp.getAllVentasRepo( { 
         filtro: {
           COD_PRODUCTO: prop ?? undefined,
           mes: mes ?? undefined,
