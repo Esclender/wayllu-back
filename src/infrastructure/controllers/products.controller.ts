@@ -70,24 +70,24 @@ export default class ProductControllers {
 
   async allVenta( req: CustomRequest, res: Response ) {
     try {
-      const { mes, semana } = req.params;
-      let prop: number | null =null;
-      let mesNumber: number | null = null;
-      let semanaNumber: number | null = null;
+      const { mes, semana } = req.params
+      const prop: number | null =null
+      let mesNumber: number | null = null
+      let semanaNumber: number | null = null
 
-      if (mes) {
-        mesNumber = parseInt(mes);
-        if (isNaN(mesNumber)) {
-            throw new Error('El mes proporcionado no es válido.');
+      if ( mes ) {
+        mesNumber = parseInt( mes )
+        if ( isNaN( mesNumber ) ) {
+          throw new Error( 'El mes proporcionado no es válido.' )
         }
-    }
-    if (semana) {
-      semanaNumber = parseInt(semana);
-      if (isNaN(semanaNumber)) {
-          throw new Error('La semana proporcionada no es válida.');
       }
-  }
-      const data = await GetAllVentas.execute(prop, mesNumber, semanaNumber)
+      if ( semana ) {
+        semanaNumber = parseInt( semana )
+        if ( isNaN( semanaNumber ) ) {
+          throw new Error( 'La semana proporcionada no es válida.' )
+        }
+      }
+      const data = await GetAllVentas.execute( prop, mesNumber, semanaNumber )
   
       ResponseImplementation( {
         res: res,

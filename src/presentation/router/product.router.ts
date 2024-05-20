@@ -17,12 +17,12 @@ export default function ProductosRouter() {
   ] , productsController.checkoutVenta )
 
   router.get( '/ventas/:mes?', [
-   // isTokenPresent
-  ], productsController.allVenta)
-
-  router.get('/ventas/:mes?/:semana?', [
     // isTokenPresent
-], productsController.allVenta);
+  ], productsController.allVenta )
+
+  router.get( '/ventas/:mes?/:semana?', [
+    // isTokenPresent
+  ], productsController.allVenta )
 
   return router
 }
