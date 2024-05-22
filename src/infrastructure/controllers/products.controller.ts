@@ -1,107 +1,109 @@
-import {Response} from 'express'
+import { Response } from 'express'
 import { GetAllProductsApplication, GetProductsApplication, CheckoutVenta } from '../applications'
 import { ResponseImplementation } from '../../helpers'
 import { CustomRequest } from '../../domain/dtos'
 import GetAllVentas from '../applications/sales/getAllSales.application'
 
 export default class ProductControllers {
-  async getProductByCode( req: CustomRequest, res: Response ) {
+  async getProductByCode(req: CustomRequest, res: Response) {
     try {
-      const productData = await GetProductsApplication.execute( {
+      const productData = await GetProductsApplication.execute({
         filtro: req.body
-      } )
+      })
 
 
-      ResponseImplementation( 
+      ResponseImplementation(
         {
-          res: res, 
-          status: 200, 
+          res: res,
+          status: 200,
           data: productData
-        } )
-  
-    } catch ( error ) {
+        })
 
-      ResponseImplementation( 
+    } catch (error) {
+
+      ResponseImplementation(
         {
-          res: res, 
-          status: 500, 
+          res: res,
+          status: 500,
           data: 'Error interno del servidor'
-        } )
+        })
     }
   }
 
-  async getAllProducts( req: CustomRequest, res: Response ) {
+  async getAllProducts(req: CustomRequest, res: Response) {
     try {
 
-      const productAllData = await GetAllProductsApplication.execute( req.jwt )
-  
-      ResponseImplementation( {
+      const productAllData = await GetAllProductsApplication.execute(req.jwt)
+
+      ResponseImplementation({
         res: res,
         status: 200,
         data: productAllData
-      } )
-    } catch ( error: any ) {
-  
+      })
+    } catch (error: any) {
+
       return res
-        .status( 500 )
-        .json( { error: 'Error internos' } )
+        .status(500)
+        .json({ error: 'Error internos' })
     }
   }
 
-  async checkoutVenta( req: CustomRequest, res: Response ) {
+  async checkoutVenta(req: CustomRequest, res: Response) {
     try {
-      const data = await CheckoutVenta.execute( req.body )
-  
-      ResponseImplementation( {
+      const data = await CheckoutVenta.execute(req.body)
+
+      ResponseImplementation({
         res: res,
         status: 200,
         data: {
           ...data,
           ...req.body
         }
-      } )
-    } catch ( error: any ) {
-      
+      })
+    } catch (error: any) {
+
       return res
-        .status( 500 )
-        .json( { error: error.message} )
+        .status(500)
+        .json({ error: error.message })
     }
   }
 
-  async allVenta( req: CustomRequest, res: Response ) {
+  async allVenta(req: CustomRequest, res: Response) {
     try {
-      const { mes, semana } = req.params;
-      let prop: number | null =null;
-      let mesNumber: number | null = null;
-      let semanaNumber: number | null = null;
+    const { year, mes } = req.params;
+    let prop: number | null = null;
+    let yearNumber: number | null = null;
+    let mesNumber: number | null = null;
 
-      if (mes) {
+    // Verificar si el año es válido y convertirlo a número
+    if (year) {
+        yearNumber = parseInt(year);
+        if (isNaN(yearNumber)) {
+            throw new Error('El año proporcionado no es válido.');
+        }
+    }
+
+    // Verificar si el mes es válido y convertirlo a número
+    if (mes) {
         mesNumber = parseInt(mes);
-        if (isNaN(mesNumber)) {
+        if (isNaN(mesNumber) || mesNumber < 1 || mesNumber > 12) {
             throw new Error('El mes proporcionado no es válido.');
         }
     }
-    if (semana) {
-      semanaNumber = parseInt(semana);
-      if (isNaN(semanaNumber)) {
-          throw new Error('La semana proporcionada no es válida.');
-      }
-  }
-      const data = await GetAllVentas.execute(prop, mesNumber, semanaNumber)
-  
-      ResponseImplementation( {
+
+    // Llamar al método para obtener las ventas filtradas
+    const data = await GetAllVentas.execute(prop, yearNumber, mesNumber);
+
+    // Responder con los datos obtenidos
+    ResponseImplementation({
         res: res,
         status: 200,
         data: data,
-        
-      
-      } )
-    } catch ( error: any ) {
-      
-      return res
-        .status( 500 )
-        .json( { error: error.message} )
-    }
+    });
+} catch (error: any) {
+    // Manejar errores
+    return res.status(500).json({ error: error.message });
+}
   }
 }
 

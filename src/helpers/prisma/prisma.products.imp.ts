@@ -76,29 +76,30 @@ export default class PrismaProductsImplementation implements IProductRepository 
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
-    const weeksInMonth: Date[][] = [];
-
-    for (let week = 1; week <= 5; week++) { 
-      weeksInMonth.push(getWeekDates(currentYear, currentMonth, week));
-  }
 
     let filter: any = {};
     if (dto.filtro) {
-        const { mes, semana, ...otherFilters } = dto.filtro;
-        if (mes && semana) {
-          const startDate = getStartDateOfWeek(semana, mes, currentYear); // Obtener fecha de inicio de la semana
-          const endDate = getEndDateOfWeek(semana, mes, currentYear); // Obtener fecha de fin de la semana
+        const { mes, year, ...otherFilters } = dto.filtro;
 
-          filter = {
-              AND: [
-                  { FECHA_REGISTRO: { gte: startDate } },
-                  { FECHA_REGISTRO: { lte: endDate } }
-              ]
-          };
-      }
+        // Filtrar por año
+        if (year) {
+            const startOfYear = new Date(year, 0, 1);
+            const endOfYear = new Date(year, 11, 31);
+
+            filter = {
+                ...filter,
+                FECHA_REGISTRO: {
+                    gte: startOfYear,
+                    lte: endOfYear,
+                },
+            };
+        }
+
+        // Filtrar por mes dentro del año especificado o el año actual si no se especifica
         if (mes) {
-            const startOfMonth = new Date(currentYear, mes - 1, 1); 
-            const endOfMonth = new Date(currentYear, mes, 0);
+            const filterYear = year || currentYear;
+            const startOfMonth = new Date(filterYear, mes - 1, 1); 
+            const endOfMonth = new Date(filterYear, mes, 0);
 
             filter = {
                 ...filter,
@@ -119,6 +120,7 @@ export default class PrismaProductsImplementation implements IProductRepository 
 
     return ventas;
 }
+
   
   }
 
