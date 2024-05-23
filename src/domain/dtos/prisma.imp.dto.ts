@@ -66,4 +66,4 @@ export type prismaProductosVenta = {
 export type prismaGetAllVentas = {
   filtro?: Partial<Venta> & { year?: number; mes?: number }; 
 };
- & { URL_IMAGE?: string | null }; // Hacer URL_IMAGE opcional en artisianDataToUpdate
+//  & { URL_IMAGE?: string | null }; // Hacer URL_IMAGE opcional en artisianDataToUpdate

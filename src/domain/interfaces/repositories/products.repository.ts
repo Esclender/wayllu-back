@@ -16,5 +16,5 @@ export default interface IProductRepository {
   registerProductRepo( dto: prismaPostProductDto ) : Promise<Productos>
   updateProductInfoRepo( dto: prismaPutProductDto ) : Promise<Productos>
   registerVenta( dto: prismaProductoVendido ) : Promise<RegistrosVentas>
-  getAllVentasRepo(dto: prismaGetAllVentas) : Promise<Venta[]>
+  getAllVentasRepo( dto: prismaGetAllVentas ) : Promise<Venta[]>
 }

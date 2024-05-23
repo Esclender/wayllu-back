@@ -32,8 +32,8 @@ export default class ProductControllers {
 
   async getAllProducts( req: CustomRequest, res: Response ) {
     try {
-
-      const productAllData = await GetAllProductsApplication.execute( req.jwt )
+      const {codigo_producto} = req.query
+      const productAllData = await GetAllProductsApplication.execute( req.jwt, codigo_producto ? Number( codigo_producto ) : null )
 
       ResponseImplementation( {
         res: res,
@@ -41,7 +41,7 @@ export default class ProductControllers {
         data: productAllData
       } )
     } catch ( error: any ) {
-
+      console.log( error )
       return res
         .status( 500 )
         .json( { error: 'Error internos' } )
