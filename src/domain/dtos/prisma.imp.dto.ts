@@ -59,5 +59,6 @@ export type prismaProductosVenta = {
 }
 
 export type prismaGetAllVentas = {
+  pagina: number,
   filtro?: Partial<Venta> & { year?: number; mes?: number }; 
 };
