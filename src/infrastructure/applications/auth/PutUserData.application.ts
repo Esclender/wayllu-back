@@ -8,9 +8,7 @@ export default class PutUserData {
 
   static async execute( dataToUpdate: prismaPutDto ) {
     const prismaImp = new PrismaImplementation()
-
     await prismaImp.updateArtisianInfoRepo( dataToUpdate )
-
   }
   
 } 

@@ -35,6 +35,53 @@ export default class PrismaProductsImplementation implements IProductRepository 
       where: dto.filtro
     } )
   }
+
+  async getLastProductItemCode( ) {
+    const aggregate = [
+      {
+        $sort: {
+          ITEM: -1
+        }
+      },
+      {
+        $limit: 1
+      }
+    ]
+    const response = await prisma.productos.aggregateRaw(
+      {
+        pipeline : aggregate
+      }
+    )
+    
+
+    return response[0]
+  }
+
+  async getLastProductByArtesano( codigoArtesana: number ) {
+    const aggregate = [
+      {
+        $match: {
+          COD_ARTESANA: codigoArtesana
+        }
+      },
+      {
+        $sort: {
+          COD_ORDEN_PRO: -1
+        }
+      },
+      {
+        $limit: 1
+      }
+    ]
+    const response = await prisma.productos.aggregateRaw(
+      {
+        pipeline : aggregate
+      }
+    )
+    
+
+    return response[0]
+  }
  
   
   async registerProductRepo( dto: prismaPostProductDto ): Promise<Productos> {

@@ -2,7 +2,6 @@ import { PrismaClient, Users } from '@prisma/client'
 import { 
   prismaGetListDto,
   prismaGetOneDocuemntDto, 
-  prismaPostDto, 
   prismaPutDto,
   prismaUpdateImageDto,
 } from '../../domain/dtos'
@@ -52,13 +51,47 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
       }
     )
   }
+
+  async getLastArtisianCodeByComunnity( dto: {codigoComunidad: number} ) {
+    const aggregate = [
+      {
+        $match: {
+          CDG_COMUNIDAD: dto.codigoComunidad
+        }
+      },
+      {
+        $sort: {
+          CODIGO: -1
+        }
+      },
+      {
+        $limit: 1
+      }
+    ]
+    const response = await prisma.users.aggregateRaw(
+      {
+        pipeline : aggregate
+      }
+    )
+    
+
+    return response[0]
+  }
   
   
-  async registerArtisianRepo( dto: prismaPostDto ): Promise<Users> {
+  async registerArtisianRepo( dto: {
+    NOMBRE_COMPLETO: string,
+    DNI: number,
+    COMUNIDAD: string,
+    CDG_COMUNIDAD: number,
+    CLAVE: string,
+    CODIGO: number,
+  } ): Promise<Users> {
     return await prisma.users.create( {
-      data: dto.UsersData
+      data: dto
     } )
   }
+
   async updateArtisianInfoRepo( dto: prismaPutDto ): Promise<Users> {
     return await prisma.users.update( 
       {

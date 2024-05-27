@@ -1,6 +1,7 @@
 import express from 'express'
 import ArtisiansControllers from '../../infrastructure/controllers/artisians.controllers'
 import { 
+  isClaveToUpdate,
   isTokenPresent 
 } from '../../infrastructure/middlewares'
 
@@ -11,6 +12,11 @@ export default function ArstesanosRouter() {
   router.get( '/', [
     isTokenPresent
   ] , artisianController.getAllArtisians )
+
+  router.post( '/registro', [
+    isTokenPresent,
+    isClaveToUpdate
+  ] , artisianController.registerArtesano )
 
 
   return router

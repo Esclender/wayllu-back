@@ -17,27 +17,27 @@ model Users {
   CLAVE           String
   EMAIL           String?
   TELEFONO        String?
-  URL_IMAGE       String?
-  FECHA_REGISTRO  DateTime?
+  URL_IMAGE       String?   @default("https://firebasestorage.googleapis.com/v0/b/wayllu.appspot.com/o/Artisans_Images%2Fimg1.jpeg?alt=media")
+  FECHA_REGISTRO  DateTime? @default(now())
   ROL             Roles     @default(ARTESANO)
 }
 
 model Productos {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
   ITEM          Int
   ANCHO         Int?
   ALTO          Int?
-  TIPO_PESO     String
+  TIPO_PESO     String?
   PESO          Int?
-  CANTIDAD      Int
+  CANTIDAD      Int?
   CATEGORIA     String
-  IMAGEN        String?
+  IMAGEN        String
   DESCRIPCION   String
   COD_FAMILIA   Int
   COD_ARTESANA  Int
-  COD_ORDEN_PRO Int
+  COD_ORDEN_PRO Int?
   COD_PRODUCTO  Int
-  FECHA_INGRESO DateTime @default(now())
+  FECHA_INGRESO DateTime? @default(now())
   UBICACION     String?
 }
 

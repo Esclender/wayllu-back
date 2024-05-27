@@ -3,6 +3,7 @@ import { GetAllProductsApplication, GetProductsApplication, CheckoutVenta } from
 import { ResponseImplementation } from '../../helpers'
 import { CustomRequest } from '../../domain/dtos'
 import GetAllVentas from '../applications/sales/getAllSales.application'
+import PostNewProductApplication from '../applications/products/postNewProduct.application'
 
 export default class ProductControllers {
   async getProductByCode( req: CustomRequest, res: Response ) {
@@ -39,6 +40,23 @@ export default class ProductControllers {
         res: res,
         status: 200,
         data: productAllData
+      } )
+    } catch ( error: any ) {
+      console.log( error )
+      return res
+        .status( 500 )
+        .json( { error: 'Error internos' } )
+    }
+  }
+
+  async registerProduct( req: CustomRequest, res: Response ) {
+    try {
+      await PostNewProductApplication.execute( req.body )
+
+      ResponseImplementation( {
+        res: res,
+        status: 201,
+        data: null
       } )
     } catch ( error: any ) {
       console.log( error )

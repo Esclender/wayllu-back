@@ -2,6 +2,7 @@ import {Response} from 'express'
 import { GetAllArtisansApplication, GetArtisianApplication } from '../applications'
 import { ResponseImplementation } from '../../helpers'
 import { CustomRequest, } from '../../domain/dtos'
+import PostNewArtisansApplication from '../applications/artisians/postNewArtisian.application'
 
 export default class ArtisiansControllers {
 
@@ -44,6 +45,31 @@ export default class ArtisiansControllers {
           res: res, 
           status: 200, 
           data: artisianAllData 
+
+        } )
+        
+    } catch ( error : any ) {
+
+      return ResponseImplementation( 
+        {
+          res: res, 
+          status: 500, 
+          data: error.message 
+
+        } )
+    }
+  }
+
+  async registerArtesano( req: CustomRequest, res: Response ) {
+    try {
+      await PostNewArtisansApplication.execute( req.body )
+      
+
+      return ResponseImplementation(
+        {
+          res: res, 
+          status: 200, 
+          data: null 
 
         } )
         

@@ -12,7 +12,7 @@ export default class GetUserJwtAccessApplication {
     const prismaImp = new PrismaImplementation()
     const {...userLoggedData } = await prismaImp.getArtisianDataByCredentialsRepo( credentials.DNI ) as Users
 
-    await this._comparePasswords(credentials.CLAVE, userLoggedData.CLAVE )
+    await this._comparePasswords( credentials.CLAVE, userLoggedData.CLAVE )
 
     const jwtGenerated = createJwt( {
       

@@ -39,7 +39,7 @@ export type prismaGetListProductsDto = {
 }
 
 export type prismaPostProductDto = {
-  ProductData: Productos
+  ProductData: Omit<Productos,'COD_ORDEN_PRO' | 'FECHA_INGRESO' | 'CANTIDAD' | 'id' >
 }
 
 export type prismaPutProductDto = {

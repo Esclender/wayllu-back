@@ -12,6 +12,10 @@ export default function ProductosRouter() {
     isTokenPresent
   ] , productsController.getAllProducts )
 
+  router.post( '/registro', [
+    isTokenPresent
+  ] , productsController.registerProduct )
+
   router.post( '/venta', [
     isTokenPresent
   ] , productsController.checkoutVenta )
