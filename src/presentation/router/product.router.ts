@@ -21,9 +21,14 @@ export default function ProductosRouter() {
   ] , productsController.checkoutVenta )
 
   router.get( '/ventas/:year?', [
+    isTokenPresent
+  ], productsController.allVenta)
     // isTokenPresent
   ], productsController.allVenta )
 
+  router.get('/ventas/:year?/:mes?', [
+     isTokenPresent
+], productsController.allVenta);
   router.get( '/ventas/:year?/:mes?', [
   //   isTokenPresent
   ], productsController.allVenta )

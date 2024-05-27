@@ -88,6 +88,10 @@ export default class ProductControllers {
 
   async allVenta( req: CustomRequest, res: Response ) {
     try {
+    const { year, mes, pagina } = req.params;
+    let prop: number | null = null;
+    let yearNumber: number | null = null;
+    let mesNumber: number | null = null;
       const { year, mes } = req.params
       const prop: number | null = null
       let yearNumber: number | null = null
@@ -101,6 +105,10 @@ export default class ProductControllers {
         }
       }
 
+    if (mes) {
+        mesNumber = parseInt(mes);
+        if (isNaN(mesNumber) || mesNumber < 1 || mesNumber > 12) {
+            throw new Error('El mes proporcionado no es válido.');
       // Verificar si el mes es válido y convertirlo a número
       if ( mes ) {
         mesNumber = parseInt( mes )
@@ -109,6 +117,9 @@ export default class ProductControllers {
         }
       }
 
+    // Llamar al método para obtener las ventas filtradas
+    const data = await GetAllVentas.execute(parseInt( 
+      pagina as string ) || 1, prop, yearNumber, mesNumber);
       // Llamar al método para obtener las ventas filtradas
       const data = await GetAllVentas.execute( prop, yearNumber, mesNumber )
 
@@ -117,6 +128,10 @@ export default class ProductControllers {
         res: res,
         status: 200,
         data: data,
+    });
+} catch (error: any) {
+    return res.status(500).json({ error: error.message });
+}
       } )
     } catch ( error: any ) {
     // Manejar errores
