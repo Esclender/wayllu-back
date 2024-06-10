@@ -9,7 +9,7 @@ import {
 
 import { IProductRepository } from '../../domain/interfaces/repositories'
 import { GenerateUuid } from '..'
-import { getEndDateOfWeek, getStartDateOfWeek, getWeekDates } from '../week/getWeek'
+// import { getEndDateOfWeek, getStartDateOfWeek, getWeekDates } from '../week/getWeek'
 
 const prisma= new PrismaClient()
 
@@ -30,10 +30,25 @@ export default class PrismaProductsImplementation implements IProductRepository 
   }
 
 
-  async getAllProducts( dto: {filtro: Partial<Productos>} ): Promise<Productos[]> {
-    return await prisma.productos.findMany( {
-      where: dto.filtro
-    } )
+  async getAllProducts( dto: {filtro: Partial<Productos>}, pagina = 1 ) {
+    const aggregate = [
+      {
+        $match: dto.filtro,
+      },
+      {
+        $skip: ( pagina - 1 ) * 10,
+      },
+      {
+        $limit: 10
+      }
+    ]
+    
+
+    return await prisma.productos.aggregateRaw(
+      {
+        pipeline : aggregate
+      }
+    )
   }
 
   async getLastProductItemCode( ) {

@@ -35,7 +35,8 @@ export type prismaGetOneProductDto = {
 }
 
 export type prismaGetListProductsDto = {
-  filtro: Partial<Productos>
+  filtro: Partial<Productos>,
+   pagina: number
 }
 
 export type prismaPostProductDto = {

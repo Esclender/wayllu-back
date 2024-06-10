@@ -15,7 +15,7 @@ export default class GetAllArtisansApplication {
     return response.map( ( artesano: any ) => {
       const {_id, FECHA_REGISTRO, ...DATA} = artesano
       const id = artesano._id['$oid']
-      const fecha = response[0].FECHA_REGISTRO['$date']
+      const fecha = artesano.FECHA_REGISTRO['$date']
 
       return {
         id,

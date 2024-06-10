@@ -12,7 +12,7 @@ import {
 export default interface IProductRepository {
   getProductDataRepo( dto: prismaGetOneProductDto ) : Promise<Productos | null>
   getProductsByCredentialsRepo( COD_PRODUCTO: number ) : Promise<Productos | null>
-  getAllProducts( dto: prismaGetListProductsDto ) : Promise<Productos[]>
+  getAllProducts( dto: prismaGetListProductsDto ) : Promise<any>
   registerProductRepo( dto: prismaPostProductDto ) : Promise<Productos>
   updateProductInfoRepo( dto: prismaPutProductDto ) : Promise<Productos>
   registerVenta( dto: prismaProductoVendido ) : Promise<RegistrosVentas>
