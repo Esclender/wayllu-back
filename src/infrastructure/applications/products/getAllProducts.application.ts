@@ -1,12 +1,13 @@
+/* eslint-disable no-unused-vars */
 import PrismaProductsImplementation from '../../../helpers/prisma/prisma.products.imp'
 import { Users } from '@prisma/client'
 
 export default class GetAllProductsApplication {
-  static async execute( jwtDecoded : Partial<Users>, codigoProducto: number | null ) {
+  static async execute( jwtDecoded : Partial<Users>, codigoProducto: string | null, pagina: number ) {
     const prismaImp = new PrismaProductsImplementation()
 
     const adminFiltro = codigoProducto != null ? {
-      COD_PRODUCTO: codigoProducto as number | undefined
+      COD_PRODUCTO: codigoProducto 
     } : {}
 
     const artesanoFiltro = {
@@ -15,7 +16,7 @@ export default class GetAllProductsApplication {
 
     const response: any = await prismaImp.getAllProducts( {
       filtro: jwtDecoded.ROL == 'ADMIN' ? adminFiltro : artesanoFiltro
-    } )
+    }, pagina )
 
     return response.map( ( producto: any ) => {
       const {_id, FECHA_INGRESO, ...DATA} = producto

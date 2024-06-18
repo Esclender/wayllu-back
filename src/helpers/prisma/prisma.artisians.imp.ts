@@ -20,7 +20,7 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
   }
   
   async getArtisianDataRepo( dto: prismaGetOneDocuemntDto ): Promise<Users | null> {
-    return await prisma.users.findUnique( {
+    return await prisma.users.findFirst( {
       where: dto.filtro,
     } )
   }
@@ -51,6 +51,13 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
       }
     )
   }
+
+  async getArtisiansListRepoWithNoPage( ) {
+    
+
+    return await prisma.users.findMany()
+  }
+  
 
   async getLastArtisianCodeByComunnity( dto: {codigoComunidad: number} ) {
     const aggregate = [

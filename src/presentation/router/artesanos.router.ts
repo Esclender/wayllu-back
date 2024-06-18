@@ -13,6 +13,14 @@ export default function ArstesanosRouter() {
     isTokenPresent
   ] , artisianController.getAllArtisians )
 
+  router.get( '/filtro', [
+    isTokenPresent
+  ] , artisianController.getUniqueArtisian )
+
+  router.get( '/todos', [
+    isTokenPresent
+  ] , artisianController.getAllArtisiansWithNoPage )
+
   router.post( '/registro', [
     isTokenPresent,
     isClaveToUpdate

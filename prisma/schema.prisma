@@ -36,7 +36,7 @@ model Productos {
   COD_FAMILIA   Int
   COD_ARTESANA  Int
   COD_ORDEN_PRO Int?
-  COD_PRODUCTO  Int
+  COD_PRODUCTO  String
   FECHA_INGRESO DateTime? @default(now())
   UBICACION     String?
 }

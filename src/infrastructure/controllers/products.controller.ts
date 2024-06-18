@@ -4,6 +4,7 @@ import { ResponseImplementation } from '../../helpers'
 import { CustomRequest } from '../../domain/dtos'
 import GetAllVentas from '../applications/sales/getAllSales.application'
 import PostNewProductApplication from '../applications/products/postNewProduct.application'
+import UpdateProductInfoApplication from '../applications/products/updateProductInfo.application'
 
 export default class ProductControllers {
   async getProductByCode( req: CustomRequest, res: Response ) {
@@ -33,8 +34,8 @@ export default class ProductControllers {
 
   async getAllProducts( req: CustomRequest, res: Response ) {
     try {
-      const {codigo_producto} = req.query
-      const productAllData = await GetAllProductsApplication.execute( req.jwt, codigo_producto ? Number( codigo_producto ) : null )
+      const {codigo_producto, pagina} = req.query
+      const productAllData = await GetAllProductsApplication.execute( req.jwt, codigo_producto ? String( codigo_producto ) : null, Number( pagina ) )
 
       ResponseImplementation( {
         res: res,
@@ -119,6 +120,24 @@ export default class ProductControllers {
         res: res,
         status: 200,
         data: data,
+      } )
+    
+    } catch ( error: any ) {
+      return res.status( 500 ).json( { error: error.message } )
+    }
+
+  }
+
+
+  async updateProduct( req: CustomRequest, res: Response ) {
+    try {
+      await UpdateProductInfoApplication.execute( req.body )
+      
+      // Responder con los datos obtenidos
+      ResponseImplementation( {
+        res: res,
+        status: 200,
+        data: null,
       } )
     
     } catch ( error: any ) {
