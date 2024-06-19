@@ -15,7 +15,7 @@ const prisma= new PrismaClient()
 
 export default class PrismaProductsImplementation implements IProductRepository {
   
-  async getProductsByCredentialsRepo( COD_PRODUCTO: number ): Promise<Productos | null> {
+  async getProductsByCredentialsRepo( COD_PRODUCTO: string ): Promise<Productos | null> {
     return await prisma.productos.findFirst( {
       where: {
         COD_PRODUCTO
@@ -31,9 +31,12 @@ export default class PrismaProductsImplementation implements IProductRepository 
 
 
   async getAllProducts( dto: {filtro: Partial<Productos>}, pagina = 1 ) {
-    const aggregate = [
+    const aggregate = [ 
       {
-        $match: dto.filtro,
+        $match: {
+          ...dto.filtro,
+          COD_PRODUCTO: {$regex: dto.filtro.COD_PRODUCTO != undefined ? `^${dto.filtro.COD_PRODUCTO }` : ''},
+        },
       },
       {
         $skip: ( pagina - 1 ) * 10,
@@ -135,7 +138,7 @@ export default class PrismaProductsImplementation implements IProductRepository 
   async getAllVentasRepo( dto: prismaGetAllVentas ): Promise<Venta[]> {
     const currentDate = new Date()
     const currentYear = currentDate.getFullYear()
-    const currentMonth = currentDate.getMonth()
+    // const currentMonth = currentDate.getMonth()
 
     let filter: any = {}
     if ( dto.filtro ) {

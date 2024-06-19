@@ -3,12 +3,14 @@ import { GetAllArtisansApplication, GetArtisianApplication } from '../applicatio
 import { ResponseImplementation } from '../../helpers'
 import { CustomRequest, } from '../../domain/dtos'
 import PostNewArtisansApplication from '../applications/artisians/postNewArtisian.application'
+import GetAllArtisansWithNoPageApplication from '../applications/artisians/getAllArtisianWithNoPage.application'
 
 export default class ArtisiansControllers {
 
 
-  async getArtisianByDni( req: CustomRequest, res: Response ) {
+  async getUniqueArtisian( req: CustomRequest, res: Response ) {
     try {
+
       const artisianData = await GetArtisianApplication.execute( {
         filtro: req.body
       } )
@@ -39,6 +41,32 @@ export default class ArtisiansControllers {
       const artisianAllData = await GetAllArtisansApplication.execute( parseInt( 
         pagina as string ) || 1, nombre != undefined ? String( nombre ).toLowerCase() : null 
       )
+
+      ResponseImplementation( 
+        {
+          res: res, 
+          status: 200, 
+          data: artisianAllData 
+
+        } )
+        
+    } catch ( error : any ) {
+
+      return ResponseImplementation( 
+        {
+          res: res, 
+          status: 500, 
+          data: error.message 
+
+        } )
+    }
+  }
+
+  async getAllArtisiansWithNoPage( req: CustomRequest, res: Response ) {
+    try {
+      // const { pagina, nombre } = req.query
+      
+      const artisianAllData = await GetAllArtisansWithNoPageApplication.execute()
 
       ResponseImplementation( 
         {

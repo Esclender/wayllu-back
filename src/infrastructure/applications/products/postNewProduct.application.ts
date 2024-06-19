@@ -23,7 +23,7 @@ export default class PostNewProductApplication {
     const productObj = {
       COD_ORDEN_PRO ,
       ITEM: lastItemCode.ITEM + 1,
-      COD_PRODUCTO: Number( COD_PRODUCTO ),
+      COD_PRODUCTO: COD_PRODUCTO,
       ...dto
     }
     
