@@ -10,11 +10,11 @@ export default function ArstesanosRouter() {
   const artisianController = new ArtisiansControllers()
 
   router.get( '/', [
-    isTokenPresent
+    //isTokenPresent
   ] , artisianController.getAllArtisians )
 
   router.post( '/registro', [
-    isTokenPresent,
+   // isTokenPresent,
     isClaveToUpdate
   ] , artisianController.registerArtesano )
 

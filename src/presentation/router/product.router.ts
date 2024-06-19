@@ -9,15 +9,15 @@ export default function ProductosRouter() {
   const productsController = new ProductsControllers()
 
   router.get( '/', [
-    isTokenPresent
+    //isTokenPresent
   ] , productsController.getAllProducts )
 
   router.post( '/registro', [
-    isTokenPresent
+   // isTokenPresent
   ] , productsController.registerProduct )
 
   router.post( '/venta', [
-    isTokenPresent
+    //isTokenPresent
   ] , productsController.checkoutVenta )
 
   router.get( '/ventas/:year?', [
