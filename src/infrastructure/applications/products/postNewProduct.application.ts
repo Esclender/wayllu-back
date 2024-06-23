@@ -19,6 +19,7 @@ export default class PostNewProductApplication {
     const lastItemCode: any = await prismaImp.getLastProductItemCode()
     const lastProductOrdenCode: any = await prismaImp.getLastProductByArtesano( dto.COD_ARTESANA )
     const COD_ORDEN_PRO = lastProductOrdenCode.COD_ORDEN_PRO+ 1
+    
     const COD_PRODUCTO = `${dto.COD_FAMILIA}${dto.COD_ARTESANA}` + ( COD_ORDEN_PRO >= 10 ? `0${COD_ORDEN_PRO}` : `00${COD_ORDEN_PRO}` )
     const productObj = {
       COD_ORDEN_PRO ,

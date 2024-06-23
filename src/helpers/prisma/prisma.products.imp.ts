@@ -92,14 +92,15 @@ export default class PrismaProductsImplementation implements IProductRepository 
         $limit: 1
       }
     ]
-    const response = await prisma.productos.aggregateRaw(
-      {
-        pipeline : aggregate
-      }
-    )
-    
-
-    return response[0]
+    const response = await prisma.productos.aggregateRaw({
+      pipeline: aggregate
+    });
+  
+    if (response.length === 0) {
+      return { COD_ORDEN_PRO: 1 };
+    }
+  
+    return response[0];
   }
  
   
