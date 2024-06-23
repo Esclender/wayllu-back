@@ -31,11 +31,13 @@ export default class PrismaProductsImplementation implements IProductRepository 
 
 
   async getAllProducts( dto: {filtro: Partial<Productos>}, pagina = 1 ) {
+    console.log(dto.filtro)
     const aggregate = [ 
       {
         $match: {
           ...dto.filtro,
           COD_PRODUCTO: {$regex: dto.filtro.COD_PRODUCTO != undefined ? `^${dto.filtro.COD_PRODUCTO }` : ''},
+          CATEGORIA: {$regex: dto.filtro.CATEGORIA != undefined ? `^${dto.filtro.CATEGORIA }` : ''}
         },
       },
       {
