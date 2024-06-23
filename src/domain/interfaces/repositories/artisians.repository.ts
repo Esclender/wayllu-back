@@ -11,7 +11,7 @@ import {
 export default interface IArtisiansRepository {
   getArtisianDataRepo( dto: prismaGetOneDocuemntDto ) : Promise<Users | null>
   getArtisianDataByCredentialsRepo( DNI: number ) : Promise<Users | null>
-  getArtisiansListRepo( dto: prismaGetListDto ) : Promise<any>
+  getArtisiansListRepo( dto: {filtro: Partial<Users>}, pagina: number, cantidad: number ) : Promise<any>
   registerArtisianRepo( dto: any ) : Promise<Users>
   updateArtisianInfoRepo( dto: prismaPutDto ) : Promise<Users>
   updateArtisianImage( dto: prismaUpdateImageDto ) :Promise<Users>

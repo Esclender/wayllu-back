@@ -7,7 +7,8 @@ export default class GetAllProductsApplication {
     jwtDecoded : Partial<Users>, 
     codigoProducto: string , 
     pagina: number,
-    categoria: string
+    categoria: string,
+    cantidad: number
   ) {
     const prismaImp = new PrismaProductsImplementation()
 
@@ -22,7 +23,7 @@ export default class GetAllProductsApplication {
 
     const response: any = await prismaImp.getAllProducts( {
       filtro: jwtDecoded.ROL == 'ADMIN' ? adminFiltro : artesanoFiltro
-    }, pagina )
+    }, pagina, cantidad )
 
     return response.map( ( producto: any ) => {
       const {_id, FECHA_INGRESO, ...DATA} = producto

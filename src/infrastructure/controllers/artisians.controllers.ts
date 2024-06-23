@@ -36,10 +36,12 @@ export default class ArtisiansControllers {
   
   async getAllArtisians( req: CustomRequest, res: Response ) {
     try {
-      const { pagina, nombre } = req.query
+      const { pagina, nombre, cantidad } = req.query
       
-      const artisianAllData = await GetAllArtisansApplication.execute( parseInt( 
-        pagina as string ) || 1, nombre != undefined ? String( nombre ).toLowerCase() : null 
+      const artisianAllData = await GetAllArtisansApplication.execute( 
+        Number( pagina as string ) || 1, 
+        String( nombre ?? '' ).toLowerCase(),
+        Number( cantidad ?? 10 )
       )
 
       ResponseImplementation( 
