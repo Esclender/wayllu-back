@@ -34,11 +34,13 @@ export default class ProductControllers {
 
   async getAllProducts( req: CustomRequest, res: Response ) {
     try {
-      const {codigo_producto, pagina, categoria} = req.query
-      const productAllData = await GetAllProductsApplication.execute(    req.jwt,
-      String( codigo_producto ?? '' ) , 
-      Number( pagina ),
-      String(categoria ?? ''),
+      const {codigo_producto, pagina, categoria, cantidad} = req.query
+      const productAllData = await GetAllProductsApplication.execute(    
+        req.jwt,
+        String( codigo_producto ?? '' ) , 
+        Number( pagina ?? 1 ),
+        String( categoria ?? '' ),
+        Number( cantidad ?? 10 )
       )
 
       ResponseImplementation( {

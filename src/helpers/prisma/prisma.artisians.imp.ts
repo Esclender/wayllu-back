@@ -25,7 +25,7 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
     } )
   }
 
-  async getArtisiansListRepo( dto: prismaGetListDto ) {
+  async getArtisiansListRepo( dto: {filtro: Partial<Users>}, pagina: number, cantidad: number ) {
     const aggregate = [
       {
         $match: {
@@ -37,10 +37,10 @@ export default class PrismaArtisiansImplementation implements IArtisiansReposito
         },
       },
       {
-        $skip: ( dto.pagina - 1 ) * 10,
+        $skip: ( pagina - 1 ) * cantidad,
       },
       {
-        $limit: 10
+        $limit: cantidad
       }
     ]
     

@@ -29,9 +29,8 @@ export default class PrismaProductsImplementation implements IProductRepository 
     } )
   }
 
-
-  async getAllProducts( dto: {filtro: Partial<Productos>}, pagina = 1 ) {
-    console.log(dto.filtro)
+  async getAllProducts( dto: {filtro: Partial<Productos>}, pagina:number, cantidad:number ) {
+    console.log( cantidad )
     const aggregate = [ 
       {
         $match: {
@@ -41,10 +40,10 @@ export default class PrismaProductsImplementation implements IProductRepository 
         },
       },
       {
-        $skip: ( pagina - 1 ) * 10,
+        $skip: ( pagina - 1 ) * cantidad,
       },
       {
-        $limit: 10
+        $limit: cantidad
       }
     ]
     
