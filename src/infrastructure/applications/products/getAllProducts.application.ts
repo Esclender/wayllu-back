@@ -3,12 +3,18 @@ import PrismaProductsImplementation from '../../../helpers/prisma/prisma.product
 import { Users } from '@prisma/client'
 
 export default class GetAllProductsApplication {
-  static async execute( jwtDecoded : Partial<Users>, codigoProducto: string | null, pagina: number ) {
+  static async execute( 
+    jwtDecoded : Partial<Users>, 
+    codigoProducto: string , 
+    pagina: number,
+    categoria: string
+  ) {
     const prismaImp = new PrismaProductsImplementation()
 
-    const adminFiltro = codigoProducto != null ? {
-      COD_PRODUCTO: codigoProducto 
-    } : {}
+    const adminFiltro = {
+      COD_PRODUCTO: codigoProducto,
+      CATEGORIA: categoria
+    }
 
     const artesanoFiltro = {
       COD_ARTESANA: jwtDecoded.CODIGO as number | undefined
