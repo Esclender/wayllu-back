@@ -46,7 +46,7 @@ export default class ProductControllers {
       console.log( error )
       return res
         .status( 500 )
-        .json( { error: 'Error internos' } )
+        .json( { error: 'Error interno' } )
     }
   }
 
@@ -56,14 +56,14 @@ export default class ProductControllers {
 
       ResponseImplementation( {
         res: res,
-        status: 201,
+        status: 200,
         data: null
       } )
     } catch ( error: any ) {
       console.log( error )
       return res
         .status( 500 )
-        .json( { error: 'Error internos' } )
+        .json( { error: 'Error interno' } )
     }
   }
 
