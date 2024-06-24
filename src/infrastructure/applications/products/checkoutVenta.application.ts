@@ -7,7 +7,6 @@ export default class CheckoutVenta {
     const PRODUCTOS = dto.PRODUCTOS.map( ( producto ) => {
       return {
         'COD_PRODUCTO': producto.COD_PRODUCTO,
-        'FECHA_REGISTRO': producto.FECHA_REGISTRO,
         'CANTIDAD': producto.CANTIDAD,
         'DESCRIPCION': producto.DESCRIPCION,
         'IMAGEN': producto.IMAGEN,

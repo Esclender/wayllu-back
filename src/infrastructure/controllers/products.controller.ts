@@ -87,6 +87,8 @@ export default class ProductControllers {
       } )
     } catch ( error: any ) {
 
+      console.log(error)
+
       return res
         .status( 500 )
         .json( { error: error.message } )

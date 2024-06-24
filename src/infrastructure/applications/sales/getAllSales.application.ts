@@ -3,7 +3,7 @@ import PrismaProductsImplementation from '../../../helpers/prisma/prisma.product
 
 
 export default class GetAllVentas {
-  static async execute( pagina : number, prop : number | null, year: number |null, mes: number|null ): Promise<Venta[]> {
+  static async execute( pagina : number, prop : string | null, year: number |null, mes: number|null ): Promise<Venta[]> {
     const prismaImp = new PrismaProductsImplementation()
     const response : any = await prismaImp.getAllVentasRepo( { 
       pagina ,
