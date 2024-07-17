@@ -18,3 +18,15 @@ http.createServer( server )
       console.log( `Listening to http://localhost:${PORT}/` )
     } 
   )
+  async function main() {
+    const productos = await prisma.productos.findMany();
+    console.log('productos:', productos);
+  }
+  
+  main()
+    .catch(e => {
+      throw e
+    })
+    .finally(async () => {
+      await prisma.$disconnect()
+    });
