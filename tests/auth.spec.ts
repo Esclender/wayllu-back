@@ -20,7 +20,7 @@ describe("Auth Tests", () => {
       "DNI": 44750328,
       "COMUNIDAD": "Huilloc",
       "CDG_COMUNIDAD": 1,
-      "CODIGO": 1001,
+      "CODIGO": "1001",
       "URL_IMAGE": "gs://wayllu.appspot.com/Artisans_Images/img1.jpeg",
       "CLAVE": "",
       "EMAIL": null,

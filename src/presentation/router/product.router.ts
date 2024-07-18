@@ -9,7 +9,7 @@ export default function ProductosRouter() {
   const productsController = new ProductsControllers()
 
   router.get( '/', [
-    //  isTokenPresent
+     isTokenPresent
   ] , productsController.getAllProducts )
 
   router.post( '/registro', [
