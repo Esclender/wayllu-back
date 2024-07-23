@@ -39,6 +39,7 @@ model Productos {
   COD_PRODUCTO  String
   FECHA_INGRESO DateTime? @default(now())
   UBICACION     String?
+  PRECIO        Float
 }
 
 model RegistrosVentas {

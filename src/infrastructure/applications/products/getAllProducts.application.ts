@@ -5,18 +5,20 @@ import { Users } from '@prisma/client'
 export default class GetAllProductsApplication {
   static async execute( 
     jwtDecoded : Partial<Users>, 
-    codigoProducto: string , 
+    codigoProducto: string, 
     pagina: number,
     categoria: string,
     cantidad: number
+    // precio: number
   ) {
     const prismaImp = new PrismaProductsImplementation()
 
     const adminFiltro = {
       COD_PRODUCTO: codigoProducto,
-      CATEGORIA: categoria
+      CATEGORIA: categoria,
+      // PRECIO: precio
     }
-
+    console.log('jwtDecoded: esta', jwtDecoded);
     const artesanoFiltro = {
       COD_ARTESANA: jwtDecoded.CODIGO as number | undefined
     }

@@ -13,7 +13,7 @@ export default function ProductosRouter() {
   ] , productsController.getAllProducts )
 
   router.post( '/registro', [
-    // isTokenPresent
+     isTokenPresent
   ] , productsController.registerProduct )
 
   router.post( '/editar', [

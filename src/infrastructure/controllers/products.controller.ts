@@ -40,7 +40,8 @@ export default class ProductControllers {
         String( codigo_producto ?? '' ) , 
         Number( pagina ?? 1 ),
         String( categoria ?? '' ),
-        Number( cantidad ?? 10 )
+        Number( cantidad ?? 10 ),
+        // Number( precio ?? 10 ),
       )
 
       ResponseImplementation( {
