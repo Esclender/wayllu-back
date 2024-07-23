@@ -58,7 +58,7 @@ model Venta {
   DESCRIPCION    String
   IMAGEN         String?
   COD_PRODUCTO   String
-
+  PRECIO_VENTA      Float
   RegistrosVentas   RegistrosVentas? @relation(fields: [registrosVentasId], references: [id])
   registrosVentasId String?          @db.ObjectId
 }

@@ -10,6 +10,7 @@ export default class CheckoutVenta {
         'CANTIDAD': producto.CANTIDAD,
         'DESCRIPCION': producto.DESCRIPCION,
         'IMAGEN': producto.IMAGEN,
+        'PRECIO_VENTA': producto.PRECIO_VENTA,
       }
     } )
 
