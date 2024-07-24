@@ -52,15 +52,19 @@ model RegistrosVentas {
 }
 
 model Venta {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  FECHA_REGISTRO DateTime? @default(now())
-  CANTIDAD       Int
-  DESCRIPCION    String
-  IMAGEN         String?
-  COD_PRODUCTO   String
-  PRECIO_VENTA      Float
-  RegistrosVentas   RegistrosVentas? @relation(fields: [registrosVentasId], references: [id])
-  registrosVentasId String?          @db.ObjectId
+  id                 String           @id @default(auto()) @map("_id") @db.ObjectId
+  FECHA_REGISTRO     DateTime?        @default(now())
+  CANTIDAD           Int
+  MONTO_TOTAL        Float
+  DESCRIPCION        String
+  NOMBRE_ARTESANO    String
+  CATEGORIA_PRODUCTO String
+  COMUNIDAD          String
+  IMAGEN             String?
+  COD_PRODUCTO       String
+  PRECIO_VENTA       Float
+  RegistrosVentas    RegistrosVentas? @relation(fields: [registrosVentasId], references: [id])
+  registrosVentasId  String?          @db.ObjectId
 }
 
 enum Roles {

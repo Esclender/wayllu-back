@@ -76,7 +76,7 @@ export default class ProductControllers {
 
   async checkoutVenta( req: CustomRequest, res: Response ) {
     try {
-      const data = await CheckoutVenta.execute( req.body )
+      const data = await CheckoutVenta.execute( req.body, req.jwt )
 
       ResponseImplementation( {
         res: res,
@@ -88,7 +88,7 @@ export default class ProductControllers {
       } )
     } catch ( error: any ) {
 
-      console.log(error)
+      console.log( error )
 
       return res
         .status( 500 )
@@ -132,7 +132,7 @@ export default class ProductControllers {
       } )
     
     } catch ( error: any ) {
-      console.log(error)
+      console.log( error )
       return res.status( 500 ).json( { error: error.message } )
     }
 
