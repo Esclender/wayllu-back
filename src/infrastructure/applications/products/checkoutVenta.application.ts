@@ -15,6 +15,7 @@ export default class CheckoutVenta {
         'MONTO_TOTAL': producto.PRECIO_VENTA * producto.CANTIDAD,
         'COMUNIDAD':  JWT['COMUNIDAD'],
         'NOMBRE_ARTESANO':  JWT['NOMBRE_COMPLETO'],
+        'COD_ARTESANA':  producto.COD_ARTESANA.toString()
       }
     } )
 

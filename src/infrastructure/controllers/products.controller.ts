@@ -96,48 +96,89 @@ export default class ProductControllers {
     }
   }
 
-  async allVenta( req: CustomRequest, res: Response ) {
+  async allVenta(req: CustomRequest, res: Response) {
     try {
-
-      const { year, mes, pagina } = req.params
-      const prop: number | null = null
-      let yearNumber: number | null = null
-      let mesNumber: number | null = null
-
-      // Verificar si el año es válido y convertirlo a número
-      if ( year ) {
-        yearNumber = parseInt( year )
-        if ( isNaN( yearNumber ) ) {
-          throw new Error( 'El año proporcionado no es válido.' )
+      const { year, mes, COD_ARTESANA, pagina } = req.params;
+      let yearNumber: number | null = null;
+      let mesNumber: number | null = null;
+      let codArtisanaNumber: string | null = COD_ARTESANA || null;
+  
+      // Validate and parse year
+      if (year) {
+        yearNumber = parseInt(year);
+        if (isNaN(yearNumber)) {
+          throw new Error('El año proporcionado no es válido.');
         }
       }
-
-      if ( mes ) {
-        mesNumber = parseInt( mes )
-        if ( isNaN( mesNumber ) || mesNumber < 1 || mesNumber > 12 ) {
-          throw new Error( 'El mes proporcionado no es válido.' )
-          // Verificar si el mes es válido y convertirlo a número
+  
+      // Validate and parse month
+      if (mes) {
+        mesNumber = parseInt(mes);
+        if (isNaN(mesNumber) || mesNumber < 1 || mesNumber > 12) {
+          throw new Error('El mes proporcionado no es válido.');
         }
       }
-
-      // Llamar al método para obtener las ventas filtradas
-      const data = await GetAllVentas.execute( parseInt( 
-      pagina as string ) || 1, prop, yearNumber, mesNumber )
-
-      // Responder con los datos obtenidos
-      ResponseImplementation( {
+  
+      // Validate COD_ARTESANA
+      if (COD_ARTESANA) {
+        if (isNaN(Number(COD_ARTESANA))) {
+          throw new Error('El código de artesano proporcionado no es válido.');
+        }
+      }
+  
+      // Validate and parse page number
+      const pageNumber = pagina ? Number(pagina) : 1;
+      if (isNaN(pageNumber) || pageNumber < 1) {
+        throw new Error('El número de página proporcionado no es válido.');
+      }
+  
+      // Build filter object
+      const filtro: any = {};
+  
+      // Filter by year or year and month
+      if (yearNumber || mesNumber) {
+        if (yearNumber && !mesNumber) {
+          const startOfYear = new Date(yearNumber, 0, 1);
+          const endOfYear = new Date(yearNumber, 11, 31);
+          filtro.FECHA_REGISTRO = { gte: startOfYear, lte: endOfYear };
+        } else if (yearNumber && mesNumber) {
+          const startOfMonth = new Date(yearNumber, mesNumber - 1, 1);
+          const endOfMonth = new Date(yearNumber, mesNumber, 0);
+          filtro.FECHA_REGISTRO = { gte: startOfMonth, lte: endOfMonth };
+        } else if (!yearNumber && mesNumber) {
+          const currentYear = new Date().getFullYear();
+          const startOfMonth = new Date(currentYear, mesNumber - 1, 1);
+          const endOfMonth = new Date(currentYear, mesNumber, 0);
+          filtro.FECHA_REGISTRO = { gte: startOfMonth, lte: endOfMonth };
+        }
+      }
+  
+      // Filter by COD_ARTESANA
+      if (codArtisanaNumber) {
+        filtro.COD_ARTESANA = codArtisanaNumber;
+      }
+  
+      // Fetch filtered sales data
+      const productData = await GetAllVentas.execute(
+        pageNumber, // pagination
+        null,       
+        yearNumber, // year
+        mesNumber,  // month
+        codArtisanaNumber 
+      );
+  
+      
+      ResponseImplementation({
         res: res,
         status: 200,
-        data: data,
-      } )
-    
-    } catch ( error: any ) {
-      console.log( error )
-      return res.status( 500 ).json( { error: error.message } )
+        data: productData,
+      });
+    } catch (error: any) {
+      console.log(error);
+      return res.status(500).json({ error: error.message });
     }
-
   }
-
+  
 
   async updateProduct( req: CustomRequest, res: Response ) {
     try {

@@ -20,18 +20,20 @@ export default function ProductosRouter() {
     isTokenPresent
   ] , productsController.updateProduct )
 
-  router.post( '/venta', [
-    isTokenPresent
-  ] , productsController.checkoutVenta )
+   router.post( '/venta', [
+     isTokenPresent
+   ] , productsController.checkoutVenta )
 
-  router.get( '/ventas/:year?', [
+   router.get('/ventas/:year?/:mes?/:COD_ARTESANA?', [
     isTokenPresent
-  ], productsController.allVenta )
+ ], productsController.allVenta)
+ 
+  
+  //  router.get( '/ventas/artesano/:COD_ARTESANA?', [
+  //   // isTokenPresent
+  //  ], productsController.allVenta )
 
-  router.get( '/ventas/:year?/:mes?', [
-    isTokenPresent
-  ], productsController.allVenta )
-
+  
 
   return router
 }

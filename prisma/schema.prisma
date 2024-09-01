@@ -58,6 +58,7 @@ model Venta {
   MONTO_TOTAL        Float
   DESCRIPCION        String
   NOMBRE_ARTESANO    String
+  COD_ARTESANA       String 
   CATEGORIA_PRODUCTO String
   COMUNIDAD          String
   IMAGEN             String?
