@@ -96,12 +96,48 @@ export default class ProductControllers {
     }
   }
 
+  
+  // Método para obtener ventas filtradas solo por COD_ARTESANA
+async ventasByCodArtisan(req: CustomRequest, res: Response) {
+  try {
+    const { COD_ARTESANA } = req.params;
+
+    // Validar COD_ARTESANA
+    if (!COD_ARTESANA || isNaN(Number(COD_ARTESANA))) {
+      throw new Error('El código de artesano proporcionado no es válido.');
+    }
+
+    // Filtrar solo por COD_ARTESANA
+    const filtro: any = {
+      COD_ARTESANA: COD_ARTESANA
+    };
+
+    // Fetch filtered sales data
+    const productData = await GetAllVentas.execute(
+      1,               // pagination (puedes cambiar si quieres paginación)
+      null,
+      null,            // year
+      null,            // month
+      COD_ARTESANA     // codigo artesano
+    );
+
+    ResponseImplementation({
+      res: res,
+      status: 200,
+      data: productData,
+    });
+  } catch (error: any) {
+    console.log(error);
+    return res.status(500).json({ error: error.message });
+  }
+}
+
   async allVenta(req: CustomRequest, res: Response) {
     try {
       const { year, mes, COD_ARTESANA, pagina } = req.params;
       let yearNumber: number | null = null;
       let mesNumber: number | null = null;
-      let codArtisanaNumber: string | null = COD_ARTESANA || null;
+      let codArtisanNumber: string | null = COD_ARTESANA || null;
   
       // Validate and parse year
       if (year) {
@@ -136,26 +172,26 @@ export default class ProductControllers {
       const filtro: any = {};
   
       // Filter by year or year and month
-      if (yearNumber || mesNumber) {
-        if (yearNumber && !mesNumber) {
-          const startOfYear = new Date(yearNumber, 0, 1);
-          const endOfYear = new Date(yearNumber, 11, 31);
-          filtro.FECHA_REGISTRO = { gte: startOfYear, lte: endOfYear };
-        } else if (yearNumber && mesNumber) {
-          const startOfMonth = new Date(yearNumber, mesNumber - 1, 1);
-          const endOfMonth = new Date(yearNumber, mesNumber, 0);
-          filtro.FECHA_REGISTRO = { gte: startOfMonth, lte: endOfMonth };
-        } else if (!yearNumber && mesNumber) {
-          const currentYear = new Date().getFullYear();
-          const startOfMonth = new Date(currentYear, mesNumber - 1, 1);
-          const endOfMonth = new Date(currentYear, mesNumber, 0);
-          filtro.FECHA_REGISTRO = { gte: startOfMonth, lte: endOfMonth };
-        }
-      }
+      // if (yearNumber || mesNumber) {
+      //   if (yearNumber && !mesNumber) {
+      //     const startOfYear = new Date(yearNumber, 0, 1);
+      //     const endOfYear = new Date(yearNumber, 11, 31);
+      //     filtro.FECHA_REGISTRO = { gte: startOfYear, lte: endOfYear };
+      //   } else if (yearNumber && mesNumber) {
+      //     const startOfMonth = new Date(yearNumber, mesNumber - 1, 1);
+      //     const endOfMonth = new Date(yearNumber, mesNumber, 0);
+      //     filtro.FECHA_REGISTRO = { gte: startOfMonth, lte: endOfMonth };
+      //   } else if (!yearNumber && mesNumber) {
+      //     const currentYear = new Date().getFullYear();
+      //     const startOfMonth = new Date(currentYear, mesNumber - 1, 1);
+      //     const endOfMonth = new Date(currentYear, mesNumber, 0);
+      //     filtro.FECHA_REGISTRO = { gte: startOfMonth, lte: endOfMonth };
+      //   }
+      // }
   
       // Filter by COD_ARTESANA
-      if (codArtisanaNumber) {
-        filtro.COD_ARTESANA = codArtisanaNumber;
+      if (codArtisanNumber) {
+        filtro.COD_ARTESANA = codArtisanNumber;
       }
   
       // Fetch filtered sales data
@@ -164,7 +200,7 @@ export default class ProductControllers {
         null,       
         yearNumber, // year
         mesNumber,  // month
-        codArtisanaNumber 
+        codArtisanNumber 
       );
   
       
@@ -178,6 +214,8 @@ export default class ProductControllers {
       return res.status(500).json({ error: error.message });
     }
   }
+
+
   
 
   async updateProduct( req: CustomRequest, res: Response ) {

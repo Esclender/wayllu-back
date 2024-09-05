@@ -24,14 +24,16 @@ export default function ProductosRouter() {
      isTokenPresent
    ] , productsController.checkoutVenta )
 
+    
+   router.get( '/ventas/artesano/:COD_ARTESANA?', [
+    isTokenPresent
+  ], productsController.ventasByCodArtisan )
+  
    router.get('/ventas/:year?/:mes?/:COD_ARTESANA?', [
     isTokenPresent
  ], productsController.allVenta)
  
-  
-  //  router.get( '/ventas/artesano/:COD_ARTESANA?', [
-  //   // isTokenPresent
-  //  ], productsController.allVenta )
+
 
   
 
