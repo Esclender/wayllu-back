@@ -92,15 +92,15 @@ export default class PrismaProductsImplementation implements IProductRepository 
         $limit: 1
       }
     ]
-    const response = await prisma.productos.aggregateRaw({
+    const response = await prisma.productos.aggregateRaw( {
       pipeline: aggregate
-    });
+    } )
   
-    if (response.length === 0) {
-      return { COD_ORDEN_PRO: 1 };
+    if ( response.length === 0 ) {
+      return { COD_ORDEN_PRO: 1 }
     }
   
-    return response[0];
+    return response[0]
   }
  
   
@@ -136,56 +136,76 @@ export default class PrismaProductsImplementation implements IProductRepository 
     } )
     return venta
   }
- 
-  async getAllVentasRepo( dto: prismaGetAllVentas ): Promise<Venta[]> {
-    const currentDate = new Date()
-    const currentYear = currentDate.getFullYear()
-    // const currentMonth = currentDate.getMonth()
+  
+  async getAllVentasRepo(dto: prismaGetAllVentas): Promise<Venta[]> {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
 
-    let filter: any = {}
-    if ( dto.filtro ) {
-      const { mes, year, ...otherFilters } = dto.filtro
+    let filter: any = {};
 
-      // Filtrar por año
-      if ( year ) {
-        const startOfYear = new Date( year, 0, 1 )
-        const endOfYear = new Date( year, 11, 31 )
+    if (dto.filtro) {
+        const { mes, year, COD_ARTESANA, ...otherFilters } = dto.filtro;
 
-        filter = {
-          ...filter,
-          FECHA_REGISTRO: {
-            gte: startOfYear,
-            lte: endOfYear,
-          },
+        // Filtrar por año o por año y mes
+        if (year || mes) {
+            if (year && !mes) {
+                // Si hay año pero no mes, filtrar por todo el año
+                const startOfYear = new Date(year, 0, 1);
+                const endOfYear = new Date(year, 11, 31);
+
+                filter = {
+                    ...filter,
+                    FECHA_REGISTRO: {
+                        gte: startOfYear,
+                        lte: endOfYear,
+                    },
+                };
+            } else if (year && mes) {
+                // Si hay año y mes, filtrar solo por el mes dentro del año
+                const startOfMonth = new Date(year, mes - 1, 1);
+                const endOfMonth = new Date(year, mes, 0);
+
+                filter = {
+                    ...filter,
+                    FECHA_REGISTRO: {
+                        gte: startOfMonth,
+                        lte: endOfMonth,
+                    },
+                };
+            } else if (!year && mes) {
+                // Si solo hay mes, asumir el año actual
+                const startOfMonth = new Date(currentYear, mes - 1, 1);
+                const endOfMonth = new Date(currentYear, mes, 0);
+
+                filter = {
+                    ...filter,
+                    FECHA_REGISTRO: {
+                        gte: startOfMonth,
+                        lte: endOfMonth,
+                    },
+                };
+            }
         }
-      }
 
-      // Filtrar por mes dentro del año especificado o el año actual si no se especifica
-      if ( mes ) {
-        const filterYear = year || currentYear
-        const startOfMonth = new Date( filterYear, mes - 1, 1 ) 
-        const endOfMonth = new Date( filterYear, mes, 0 )
-
-        filter = {
-          ...filter,
-          FECHA_REGISTRO: {
-            gte: startOfMonth,
-            lte: endOfMonth,
-          },
+        // Filtrar por COD_ARTESANA
+        if (COD_ARTESANA) {
+            filter = {
+                ...filter,
+                COD_ARTESANA,
+            };
         }
-      }
 
-      filter = { ...filter, ...otherFilters }
+        // Aplicar otros filtros adicionales
+        filter = { ...filter, ...otherFilters };
     }
 
-    const ventas = await prisma.venta.findMany( {
-      where: filter,
-      include: {},
-    } )
+    const ventas = await prisma.venta.findMany({
+        where: filter,
+        include: {},
+    });
 
-    return ventas
-  }
+    return ventas;
+}
 
-  
 }
 

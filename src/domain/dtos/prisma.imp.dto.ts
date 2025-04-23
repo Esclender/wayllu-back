@@ -57,7 +57,7 @@ export type prismaDeleteProductDto = {
 
 export type prismaProductoVendido = {
   CANTIDAD_TOTAL_PRODUCTOS: number,
-  PRODUCTOS: Omit<Venta, 'id' | 'registrosVentasId' | 'FECHA_REGISTRO'>[] 
+  PRODUCTOS: ( Omit<Venta, 'id' | 'registrosVentasId' | 'FECHA_REGISTRO'> & { CANTIDAD: number; } )[] 
 }
 
 export type prismaProductosVenta = {

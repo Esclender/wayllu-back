@@ -10,7 +10,7 @@ export default function ArstesanosRouter() {
   const artisianController = new ArtisiansControllers()
 
   router.get( '/', [
-    isTokenPresent
+   // isTokenPresent
   ] , artisianController.getAllArtisians )
 
   router.get( '/filtro', [
